@@ -7,49 +7,55 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Custom CSS for finer control and overrides */
+        /* Custom CSS for girly theme */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
         
         :root {
-            --primary: #4f46e5;
-            --primary-dark: #4338ca;
-            --secondary: #7c3aed;
-            --accent: #ec4899;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --info: #3b82f6;
-            --dark: #1e293b;
-            --light: #f8fafc;
-            --gray: #64748b;
+            --primary: #e91e63;
+            --primary-light: #f8bbd9;
+            --primary-dark: #ad1457;
+            --secondary: #9c27b0;
+            --accent: #ff4081;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --danger: #f44336;
+            --info: #2196f3;
+            --dark: #4a148c;
+            --light: #fce4ec;
+            --gray: #8e8e93;
             --bg-primary: #ffffff;
-            --bg-secondary: #f8fafc;
-            --text-primary: #1e293b;
-            --text-secondary: #64748b;
-            --border-color: #e2e8f0;
+            --bg-secondary: #f8f4f9;
+            --text-primary: #4a148c;
+            --text-secondary: #7b1fa2;
+            --border-color: #e1bee7;
             --card-bg: #ffffff;
-            --hover-bg: #f1f5f9;
+            --hover-bg: #f3e5f5;
+            --gradient-start: #e91e63;
+            --gradient-end: #9c27b0;
         }
 
         [data-theme="dark"] {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --secondary: #8b5cf6;
-            --accent: #f472b6;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --info: #3b82f6;
-            --dark: #f8fafc;
-            --light: #1e293b;
-            --gray: #94a3b8;
-            --bg-primary: #1e293b;
-            --bg-secondary: #334155;
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --border-color: #475569;
-            --card-bg: #334155;
-            --hover-bg: #475569;
+            --primary: #f48fb1;
+            --primary-light: #fce4ec;
+            --primary-dark: #ad1457;
+            --secondary: #ce93d8;
+            --accent: #ff80ab;
+            --success: #81c784;
+            --warning: #ffb74d;
+            --danger: #e57373;
+            --info: #64b5f6;
+            --dark: #f3e5f5;
+            --light: #4a148c;
+            --gray: #b39ddb;
+            --bg-primary: #1a1a2e;
+            --bg-secondary: #16213e;
+            --text-primary: #f3e5f5;
+            --text-secondary: #ce93d8;
+            --border-color: #7e57c2;
+            --card-bg: #16213e;
+            --hover-bg: #0f3460;
+            --gradient-start: #f48fb1;
+            --gradient-end: #ce93d8;
         }
 
         * {
@@ -60,7 +66,7 @@
 
         body {
             font-family: "Inter", sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
             background-attachment: fixed;
             display: flex;
             justify-content: center;
@@ -73,7 +79,7 @@
         }
 
         [data-theme="dark"] body {
-            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
         }
 
         body::before {
@@ -94,7 +100,7 @@
             border-radius: 20px;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
             width: 100%;
-            max-width: 1000px;
+            max-width: 1200px;
             border: 1px solid var(--border-color);
             opacity: 0;
             animation: fadeIn 0.8s ease-out forwards;
@@ -201,7 +207,7 @@
         select:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+            box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.2);
         }
 
         .item-row {
@@ -302,78 +308,78 @@
         button.submit-button {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
-            box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.3);
+            box-shadow: 0 4px 6px -1px rgba(233, 30, 99, 0.3);
         }
 
         button.submit-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
+            box-shadow: 0 10px 15px -3px rgba(233, 30, 99, 0.3);
         }
 
         button.reset-button {
-            background: linear-gradient(135deg, #64748b, #475569);
+            background: linear-gradient(135deg, #8e8e93, #5d5d63);
             color: white;
-            box-shadow: 0 4px 6px -1px rgba(100, 116, 139, 0.3);
+            box-shadow: 0 4px 6px -1px rgba(142, 142, 147, 0.3);
         }
 
         button.reset-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 15px -3px rgba(100, 116, 139, 0.3);
+            box-shadow: 0 10px 15px -3px rgba(142, 142, 147, 0.3);
         }
 
         button.clear-button {
-            background: linear-gradient(135deg, var(--danger), #dc2626);
+            background: linear-gradient(135deg, var(--danger), #d32f2f);
             color: white;
-            box-shadow: 0 4px 6px -1px rgba(239, 68, 68, 0.3);
+            box-shadow: 0 4px 6px -1px rgba(244, 67, 54, 0.3);
         }
 
         button.clear-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 15px -3px rgba(239, 68, 68, 0.3);
+            box-shadow: 0 10px 15px -3px rgba(244, 67, 54, 0.3);
         }
 
         button.toggle-stats-button {
-            background: linear-gradient(135deg, var(--success), #059669);
+            background: linear-gradient(135deg, var(--success), #388e3c);
             color: white;
-            box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.3);
+            box-shadow: 0 4px 6px -1px rgba(76, 175, 80, 0.3);
         }
 
         button.toggle-stats-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.3);
+            box-shadow: 0 10px 15px -3px rgba(76, 175, 80, 0.3);
         }
 
         button.add-stock-button {
-            background: linear-gradient(135deg, var(--info), #2563eb);
+            background: linear-gradient(135deg, var(--info), #1976d2);
             color: white;
-            box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 4px 6px -1px rgba(33, 150, 243, 0.3);
         }
 
         button.add-stock-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 10px 15px -3px rgba(33, 150, 243, 0.3);
         }
 
         button.clear-stock-button {
-            background: linear-gradient(135deg, var(--warning), #d97706);
+            background: linear-gradient(135deg, var(--warning), #f57c00);
             color: white;
-            box-shadow: 0 4px 6px -1px rgba(245, 158, 11, 0.3);
+            box-shadow: 0 4px 6px -1px rgba(255, 152, 0, 0.3);
         }
 
         button.clear-stock-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 15px -3px rgba(245, 158, 11, 0.3);
+            box-shadow: 0 10px 15px -3px rgba(255, 152, 0, 0.3);
         }
 
         button.set-stock-button {
-            background: linear-gradient(135deg, var(--accent), #db2777);
+            background: linear-gradient(135deg, var(--accent), #c2185b);
             color: white;
-            box-shadow: 0 4px 6px -1px rgba(236, 72, 153, 0.3);
+            box-shadow: 0 4px 6px -1px rgba(255, 64, 129, 0.3);
         }
 
         button.set-stock-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 15px -3px rgba(236, 72, 153, 0.3);
+            box-shadow: 0 10px 15px -3px rgba(255, 64, 129, 0.3);
         }
 
         .message-box {
@@ -414,7 +420,7 @@
 
         .message-box button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
+            box-shadow: 0 10px 15px -3px rgba(233, 30, 99, 0.3);
         }
 
         .message-box .confirm-buttons {
@@ -521,11 +527,11 @@
         }
 
         .charged-category::before {
-            background: linear-gradient(90deg, var(--warning), #d97706);
+            background: linear-gradient(90deg, var(--warning), #f57c00);
         }
 
         .uncharged-category::before {
-            background: linear-gradient(90deg, var(--info), #2563eb);
+            background: linear-gradient(90deg, var(--info), #1976d2);
         }
 
         .request-list-category:hover {
@@ -809,6 +815,159 @@
             font-style: italic;
         }
 
+        /* New UI Improvements */
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-stat {
+            background: var(--card-bg);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .dashboard-stat:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .dashboard-stat h3 {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+        }
+
+        .dashboard-stat p {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .quick-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .quick-action-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 150px;
+            justify-content: center;
+        }
+
+        .quick-action-btn:hover {
+            background: var(--hover-bg);
+            transform: translateY(-2px);
+        }
+
+        .quick-action-btn i {
+            color: var(--primary);
+        }
+
+        .form-section {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-section h3 {
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-section h3 i {
+            color: var(--primary);
+        }
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        .item-card {
+            background: var(--bg-secondary);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .item-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .item-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .item-card-header h4 {
+            color: var(--text-primary);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .item-card-header h4 i {
+            color: var(--primary);
+        }
+
+        .item-card-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .item-card-body .form-group {
+            margin-bottom: 0;
+        }
+
+        .item-card-body label {
+            font-size: 0.8rem;
+        }
+
+        .item-card-body input,
+        .item-card-body select {
+            padding: 8px;
+            font-size: 0.9rem;
+        }
+
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .container {
@@ -855,18 +1014,72 @@
             .request-list-category {
                 min-width: 100%;
             }
+
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .quick-actions {
+                width: 100%;
+            }
+
+            .quick-action-btn {
+                min-width: 100%;
+            }
+
+            .items-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1><i class="fas fa-tshirt"></i> Uniform Request Management</h1>
+        <div class="dashboard-header">
+            <h1><i class="fas fa-tshirt"></i> Uniform Request Management</h1>
+            <div class="user-id-display">
+                <div class="connection-status" id="connectionStatus"></div>
+                <div><i class="fas fa-user-circle"></i> <span id="userIdText">Loading user ID...</span></div>
+                <div class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon" id="themeIcon"></i>
+                </div>
+            </div>
+        </div>
 
-        <div class="user-id-display">
-            <div class="connection-status" id="connectionStatus"></div>
-            <div><i class="fas fa-user-circle"></i> <span id="userIdText">Loading user ID...</span></div>
-            <div class="theme-toggle" id="themeToggle">
-                <i class="fas fa-moon" id="themeIcon"></i>
+        <!-- Dashboard Stats -->
+        <div class="dashboard-stats">
+            <div class="dashboard-stat">
+                <h3><i class="fas fa-file-alt"></i> Total Requests</h3>
+                <p id="totalRequestsStat">0</p>
+            </div>
+            <div class="dashboard-stat">
+                <h3><i class="fas fa-money-bill-wave"></i> Charged Requests</h3>
+                <p id="chargedRequestsStat">0</p>
+            </div>
+            <div class="dashboard-stat">
+                <h3><i class="fas fa-gift"></i> Uncharged Requests</h3>
+                <p id="unchargedRequestsStat">0</p>
+            </div>
+            <div class="dashboard-stat">
+                <h3><i class="fas fa-boxes"></i> Total Items</h3>
+                <p id="totalItemsStat">0</p>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <div class="quick-action-btn" id="quickAddStockBtn">
+                <i class="fas fa-plus-circle"></i> Add Stock
+            </div>
+            <div class="quick-action-btn" id="quickViewStockBtn">
+                <i class="fas fa-clipboard-list"></i> View Stock
+            </div>
+            <div class="quick-action-btn" id="quickViewRequestsBtn">
+                <i class="fas fa-list-alt"></i> View Requests
+            </div>
+            <div class="quick-action-btn" id="quickViewStatsBtn">
+                <i class="fas fa-chart-pie"></i> View Stats
             </div>
         </div>
 
@@ -881,223 +1094,352 @@
             <div class="section-content expanded" id="requestFormContent">
                 <form id="uniformForm">
                     <!-- Employee Details -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                        <div class="form-group">
-                            <label for="date"><i class="fas fa-calendar-alt"></i> Date:</label>
-                            <input type="date" id="date" name="date" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="clockNo"><i class="fas fa-clock"></i> Clock No.:</label>
-                            <input type="text" id="clockNo" name="clockNo" required>
-                        </div>
-                        <div class="form-group md:col-span-2">
-                            <label for="names"><i class="fas fa-user"></i> Names:</label>
-                            <input type="text" id="names" name="names" required>
+                    <div class="form-section">
+                        <h3><i class="fas fa-user"></i> Employee Details</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="form-group">
+                                <label for="date"><i class="fas fa-calendar-alt"></i> Date:</label>
+                                <input type="date" id="date" name="date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="clockNo"><i class="fas fa-clock"></i> Clock No.:</label>
+                                <input type="text" id="clockNo" name="clockNo" required>
+                            </div>
+                            <div class="form-group md:col-span-2">
+                                <label for="names"><i class="fas fa-user"></i> Names:</label>
+                                <input type="text" id="names" name="names" required>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Category Selection -->
-                    <div class="form-group mb-4">
-                        <label for="category"><i class="fas fa-tags"></i> Category:</label>
-                        <select id="category" name="category" required>
-                            <option value="">Select Category</option>
-                            <option value="Charged">Charged</option>
-                            <option value="Uncharged">Uncharged</option>
-                        </select>
+                    <div class="form-section">
+                        <h3><i class="fas fa-tags"></i> Category</h3>
+                        <div class="form-group">
+                            <select id="category" name="category" required>
+                                <option value="">Select Category</option>
+                                <option value="Charged">Charged</option>
+                                <option value="Uncharged">Uncharged</option>
+                            </select>
+                        </div>
                     </div>
 
                     <!-- Uniform Items -->
-                    <div class="mb-4">
-                        <h2><i class="fas fa-box"></i> Uniform Items Requested</h2>
+                    <div class="form-section">
+                        <h3><i class="fas fa-box"></i> Uniform Items Requested</h3>
+                        <div class="items-grid">
+                            <!-- T-shirt -->
+                            <div class="item-card">
+                                <div class="item-card-header">
+                                    <h4><i class="fas fa-tshirt"></i> T-shirt (T)</h4>
+                                </div>
+                                <div class="item-card-body">
+                                    <div class="form-group">
+                                        <label for="tShirtQty">Quantity:</label>
+                                        <input type="number" id="tShirtQty" name="tShirtQty" min="0" value="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="tShirtSize">Size:</label>
+                                        <select id="tShirtSize" name="tShirtSize">
+                                            <option value="">Select Size</option>
+                                            <option value="XS">XS</option>
+                                            <option value="S">S</option>
+                                            <option value="M">M</option>
+                                            <option value="L">L</option>
+                                            <option value="XL">XL</option>
+                                            <option value="XXL">XXL</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
 
-                        <!-- T-shirt -->
-                        <div class="item-row">
-                            <label for="tShirtQty"><i class="fas fa-tshirt"></i> T-shirt (T):</label>
-                            <input type="number" id="tShirtQty" name="tShirtQty" min="0" value="0">
-                            <select id="tShirtSize" name="tShirtSize">
-                                <option value="">N/A</option>
-                                <option value="XS">XS</option>
-                                <option value="S">S</option>
-                                <option value="M">M</option>
-                                <option value="L">L</option>
-                                <option value="XL">XL</option>
-                                <option value="XXL">XXL</option>
-                            </select>
-                        </div>
+                            <!-- Golfer -->
+                            <div class="item-card">
+                                <div class="item-card-header">
+                                    <h4><i class="fas fa-tshirt"></i> Golfer (G)</h4>
+                                </div>
+                                <div class="item-card-body">
+                                    <div class="form-group">
+                                        <label for="golferQty">Quantity:</label>
+                                        <input type="number" id="golferQty" name="golferQty" min="0" value="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="golferSize">Size:</label>
+                                        <select id="golferSize" name="golferSize">
+                                            <option value="">Select Size</option>
+                                            <option value="XS">XS</option>
+                                            <option value="S">S</option>
+                                            <option value="M">M</option>
+                                            <option value="L">L</option>
+                                            <option value="XL">XL</option>
+                                            <option value="XXL">XXL</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
 
-                        <!-- Golfer -->
-                        <div class="item-row">
-                            <label for="golferQty"><i class="fas fa-tshirt"></i> Golfer (G):</label>
-                            <input type="number" id="golferQty" name="golferQty" min="0" value="0">
-                            <select id="golferSize" name="golferSize">
-                                <option value="">N/A</option>
-                                <option value="XS">XS</option>
-                                <option value="S">S</option>
-                                <option value="M">M</option>
-                                <option value="L">L</option>
-                                <option value="XL">XL</option>
-                                <option value="XXL">XXL</option>
-                            </select>
-                        </div>
+                            <!-- Jacket Royal Blue (JRB) -->
+                            <div class="item-card">
+                                <div class="item-card-header">
+                                    <h4><i class="fas fa-user-tie"></i> Jacket Royal Blue (JRB)</h4>
+                                </div>
+                                <div class="item-card-body">
+                                    <div class="form-group">
+                                        <label for="jrbQty">Quantity:</label>
+                                        <input type="number" id="jrbQty" name="jrbQty" min="0" value="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="jrbSize">Size:</label>
+                                        <select id="jrbSize" name="jrbSize">
+                                            <option value="">Select Size</option>
+                                            <option value="XS">XS</option>
+                                            <option value="S">S</option>
+                                            <option value="M">M</option>
+                                            <option value="L">L</option>
+                                            <option value="XL">XL</option>
+                                            <option value="XXL">XXL</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
 
-                        <!-- Jacket Royal Blue (JRB) -->
-                        <div class="item-row">
-                            <label for="jrbQty"><i class="fas fa-user-tie"></i> Jacket Royal Blue (JRB):</label>
-                            <input type="number" id="jrbQty" name="jrbQty" min="0" value="0">
-                            <select id="jrbSize" name="jrbSize">
-                                <option value="">N/A</option>
-                                <option value="XS">XS</option>
-                                <option value="S">S</option>
-                                <option value="M">M</option>
-                                <option value="L">L</option>
-                                <option value="XL">XL</option>
-                                <option value="XXL">XXL</option>
-                            </select>
-                        </div>
+                            <!-- Jacket Navy Blue (JNB) -->
+                            <div class="item-card">
+                                <div class="item-card-header">
+                                    <h4><i class="fas fa-user-tie"></i> Jacket Navy Blue (JNB)</h4>
+                                </div>
+                                <div class="item-card-body">
+                                    <div class="form-group">
+                                        <label for="jnbQty">Quantity:</label>
+                                        <input type="number" id="jnbQty" name="jnbQty" min="0" value="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="jnbSize">Size:</label>
+                                        <select id="jnbSize" name="jnbSize">
+                                            <option value="">Select Size</option>
+                                            <option value="XS">XS</option>
+                                            <option value="S">S</option>
+                                            <option value="M">M</option>
+                                            <option value="L">L</option>
+                                            <option value="XL">XL</option>
+                                            <option value="XXL">XXL</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
 
-                        <!-- Jacket Navy Blue (JNB) -->
-                        <div class="item-row">
-                            <label for="jnbQty"><i class="fas fa-user-tie"></i> Jacket Navy Blue (JNB):</label>
-                            <input type="number" id="jnbQty" name="jnbQty" min="0" value="0">
-                            <select id="jnbSize" name="jnbSize">
-                                <option value="">N/A</option>
-                                <option value="XS">XS</option>
-                                <option value="S">S</option>
-                                <option value="M">M</option>
-                                <option value="L">L</option>
-                                <option value="XL">XL</option>
-                                <option value="XXL">XXL</option>
-                            </select>
-                        </div>
+                            <!-- Beanie Royal Blue / Navy Blue (BRB BNB) -->
+                            <div class="item-card">
+                                <div class="item-card-header">
+                                    <h4><i class="fas fa-hat-winter"></i> Beanie (BRB/BNB)</h4>
+                                </div>
+                                <div class="item-card-body">
+                                    <div class="form-group">
+                                        <label for="beanieQty">Quantity:</label>
+                                        <input type="number" id="beanieQty" name="beanieQty" min="0" value="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="beanieColor">Color:</label>
+                                        <select id="beanieColor" name="beanieColor">
+                                            <option value="">Select Color</option>
+                                            <option value="Royal Blue">Royal Blue</option>
+                                            <option value="Navy Blue">Navy Blue</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
 
-                        <!-- Beanie Royal Blue / Navy Blue (BRB BNB) -->
-                        <div class="item-row">
-                            <label for="beanieQty"><i class="fas fa-hat-winter"></i> Beanie (BRB/BNB):</label>
-                            <input type="number" id="beanieQty" name="beanieQty" min="0" value="0">
-                            <select id="beanieColor" name="beanieColor">
-                                <option value="">N/A</option>
-                                <option value="Royal Blue">Royal Blue</option>
-                                <option value="Navy Blue">Navy Blue</option>
-                            </select>
-                        </div>
+                            <!-- Skirt (S) -->
+                            <div class="item-card">
+                                <div class="item-card-header">
+                                    <h4><i class="fas fa-user"></i> Skirt (S)</h4>
+                                </div>
+                                <div class="item-card-body">
+                                    <div class="form-group">
+                                        <label for="skirtQty">Quantity:</label>
+                                        <input type="number" id="skirtQty" name="skirtQty" min="0" value="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="skirtSize">Size:</label>
+                                        <select id="skirtSize" name="skirtSize">
+                                            <option value="">Select Size</option>
+                                            <option value="28">28</option>
+                                            <option value="30">30</option>
+                                            <option value="32">32</option>
+                                            <option value="34">34</option>
+                                            <option value="36">36</option>
+                                            <option value="38">38</option>
+                                            <option value="40">40</option>
+                                            <option value="42">42</option>
+                                            <option value="44">44</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
 
-                        <!-- Skirt (S) -->
-                        <div class="item-row">
-                            <label for="skirtQty"><i class="fas fa-user"></i> Skirt (S):</label>
-                            <input type="number" id="skirtQty" name="skirtQty" min="0" value="0">
-                            <select id="skirtSize" name="skirtSize">
-                                <option value="">N/A</option>
-                                <option value="28">28</option>
-                                <option value="30">30</option>
-                                <option value="32">32</option>
-                                <option value="34">34</option>
-                                <option value="36">36</option>
-                                <option value="38">38</option>
-                                <option value="40">40</option>
-                                <option value="42">42</option>
-                                <option value="44">44</option>
-                            </select>
-                        </div>
-
-                        <!-- Abaya (A) -->
-                        <div class="item-row">
-                            <label for="abayaQty"><i class="fas fa-user"></i> Abaya (A):</label>
-                            <input type="number" id="abayaQty" name="abayaQty" min="0" value="0">
-                            <select id="abayaSize" name="abayaSize">
-                                <option value="">N/A</option>
-                                <option value="XS">XS</option>
-                                <option value="S">S</option>
-                                <option value="M">M</option>
-                                <option value="L">L</option>
-                                <option value="XL">XL</option>
-                                <option value="XXL">XXL</option>
-                                <option value="No Size">No Size</option>
-                            </select>
-                        </div>
-                        
-                        <!-- Caps -->
-                        <div class="item-row">
-                            <label for="capsQty"><i class="fas fa-hat-cowboy"></i> Caps:</label>
-                            <input type="number" id="capsQty" name="capsQty" min="0" value="0">
-                            <select id="capsSize" name="capsSize">
-                                <option value="">N/A</option>
-                                <option value="No Size">No Size</option>
-                            </select>
-                        </div>
-                        
-                        <!-- Shoes -->
-                        <div class="item-row">
-                            <label for="shoesQty"><i class="fas fa-shoe-prints"></i> Shoes:</label>
-                            <input type="number" id="shoesQty" name="shoesQty" min="0" value="0">
-                            <select id="shoesSize" name="shoesSize">
-                                <option value="">N/A</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                            </select>
-                        </div>
-                        
-                        <!-- Gloves -->
-                        <div class="item-row">
-                            <label for="glovesQty"><i class="fas fa-mitten"></i> Gloves:</label>
-                            <input type="number" id="glovesQty" name="glovesQty" min="0" value="0">
-                            <select id="glovesType" name="glovesType">
-                                <option value="">N/A</option>
-                                <option value="Material">Material</option>
-                                <option value="Freezer">Freezer</option>
-                                <option value="Rubber">Rubber</option>
-                            </select>
-                        </div>
-                        
-                        <!-- Dust Coats -->
-                        <div class="item-row">
-                            <label for="dustCoatsQty"><i class="fas fa-user-md"></i> Dust Coats:</label>
-                            <input type="number" id="dustCoatsQty" name="dustCoatsQty" min="0" value="0">
-                            <select id="dustCoatsSize" name="dustCoatsSize">
-                                <option value="">N/A</option>
-                                <option value="28">28</option>
-                                <option value="30">30</option>
-                                <option value="32">32</option>
-                                <option value="34">34</option>
-                                <option value="36">36</option>
-                                <option value="38">38</option>
-                                <option value="40">40</option>
-                                <option value="42">42</option>
-                                <option value="44">44</option>
-                            </select>
-                        </div>
-                        
-                        <!-- Reflector -->
-                        <div class="item-row">
-                            <label for="reflectorQty"><i class="fas fa-vest"></i> Reflector:</label>
-                            <input type="number" id="reflectorQty" name="reflectorQty" min="0" value="0">
-                            <select id="reflectorSize" name="reflectorSize">
-                                <option value="">N/A</option>
-                                <option value="No Size">No Size</option>
-                            </select>
+                            <!-- Abaya (A) -->
+                            <div class="item-card">
+                                <div class="item-card-header">
+                                    <h4><i class="fas fa-user"></i> Abaya (A)</h4>
+                                </div>
+                                <div class="item-card-body">
+                                    <div class="form-group">
+                                        <label for="abayaQty">Quantity:</label>
+                                        <input type="number" id="abayaQty" name="abayaQty" min="0" value="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="abayaSize">Size:</label>
+                                        <select id="abayaSize" name="abayaSize">
+                                            <option value="">Select Size</option>
+                                            <option value="XS">XS</option>
+                                            <option value="S">S</option>
+                                            <option value="M">M</option>
+                                            <option value="L">L</option>
+                                            <option value="XL">XL</option>
+                                            <option value="XXL">XXL</option>
+                                            <option value="No Size">No Size</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Caps -->
+                            <div class="item-card">
+                                <div class="item-card-header">
+                                    <h4><i class="fas fa-hat-cowboy"></i> Caps</h4>
+                                </div>
+                                <div class="item-card-body">
+                                    <div class="form-group">
+                                        <label for="capsQty">Quantity:</label>
+                                        <input type="number" id="capsQty" name="capsQty" min="0" value="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="capsSize">Size:</label>
+                                        <select id="capsSize" name="capsSize">
+                                            <option value="">Select Size</option>
+                                            <option value="No Size">No Size</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Shoes -->
+                            <div class="item-card">
+                                <div class="item-card-header">
+                                    <h4><i class="fas fa-shoe-prints"></i> Shoes</h4>
+                                </div>
+                                <div class="item-card-body">
+                                    <div class="form-group">
+                                        <label for="shoesQty">Quantity:</label>
+                                        <input type="number" id="shoesQty" name="shoesQty" min="0" value="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="shoesSize">Size:</label>
+                                        <select id="shoesSize" name="shoesSize">
+                                            <option value="">Select Size</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Gloves -->
+                            <div class="item-card">
+                                <div class="item-card-header">
+                                    <h4><i class="fas fa-mitten"></i> Gloves</h4>
+                                </div>
+                                <div class="item-card-body">
+                                    <div class="form-group">
+                                        <label for="glovesQty">Quantity:</label>
+                                        <input type="number" id="glovesQty" name="glovesQty" min="0" value="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="glovesType">Type:</label>
+                                        <select id="glovesType" name="glovesType">
+                                            <option value="">Select Type</option>
+                                            <option value="Material">Material</option>
+                                            <option value="Freezer">Freezer</option>
+                                            <option value="Rubber">Rubber</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Dust Coats -->
+                            <div class="item-card">
+                                <div class="item-card-header">
+                                    <h4><i class="fas fa-user-md"></i> Dust Coats</h4>
+                                </div>
+                                <div class="item-card-body">
+                                    <div class="form-group">
+                                        <label for="dustCoatsQty">Quantity:</label>
+                                        <input type="number" id="dustCoatsQty" name="dustCoatsQty" min="0" value="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="dustCoatsSize">Size:</label>
+                                        <select id="dustCoatsSize" name="dustCoatsSize">
+                                            <option value="">Select Size</option>
+                                            <option value="28">28</option>
+                                            <option value="30">30</option>
+                                            <option value="32">32</option>
+                                            <option value="34">34</option>
+                                            <option value="36">36</option>
+                                            <option value="38">38</option>
+                                            <option value="40">40</option>
+                                            <option value="42">42</option>
+                                            <option value="44">44</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Reflector -->
+                            <div class="item-card">
+                                <div class="item-card-header">
+                                    <h4><i class="fas fa-vest"></i> Reflector</h4>
+                                </div>
+                                <div class="item-card-body">
+                                    <div class="form-group">
+                                        <label for="reflectorQty">Quantity:</label>
+                                        <input type="number" id="reflectorQty" name="reflectorQty" min="0" value="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="reflectorSize">Size:</label>
+                                        <select id="reflectorSize" name="reflectorSize">
+                                            <option value="">Select Size</option>
+                                            <option value="No Size">No Size</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Total and Signatures -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                        <div class="form-group">
-                            <label for="total"><i class="fas fa-calculator"></i> Total Items:</label>
-                            <input type="text" id="total" name="total" readonly value="0">
-                        </div>
-                        <div class="form-group">
-                            <label for="totalCost"><i class="fas fa-money-bill-wave"></i> Total Cost:</label>
-                            <input type="text" id="totalCost" name="totalCost" readonly value="R 0.00">
-                        </div>
-                        <div class="form-group">
-                            <label for="supervisorSign"><i class="fas fa-signature"></i> Supervisor Sign:</label>
-                            <input type="text" id="supervisorSign" name="supervisorSign">
-                        </div>
-                        <div class="form-group">
-                            <label for="employeeSign"><i class="fas fa-signature"></i> Employee Sign:</label>
-                            <input type="text" id="employeeSign" name="employeeSign">
+                    <div class="form-section">
+                        <h3><i class="fas fa-file-invoice-dollar"></i> Summary & Signatures</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="form-group">
+                                <label for="total"><i class="fas fa-calculator"></i> Total Items:</label>
+                                <input type="text" id="total" name="total" readonly value="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="totalCost"><i class="fas fa-money-bill-wave"></i> Total Cost:</label>
+                                <input type="text" id="totalCost" name="totalCost" readonly value="R 0.00">
+                            </div>
+                            <div class="form-group">
+                                <label for="supervisorSign"><i class="fas fa-signature"></i> Supervisor Sign:</label>
+                                <input type="text" id="supervisorSign" name="supervisorSign">
+                            </div>
+                            <div class="form-group">
+                                <label for="employeeSign"><i class="fas fa-signature"></i> Employee Sign:</label>
+                                <input type="text" id="employeeSign" name="employeeSign">
+                            </div>
                         </div>
                     </div>
 
@@ -1121,143 +1463,153 @@
             </div>
             <div class="section-content" id="stockManagementContent">
                 <!-- Add Stock Section -->
-                <div class="stock-input-group">
-                    <div class="form-group mb-0">
-                        <label for="addStockItemSelect"><i class="fas fa-box"></i> Select Item:</label>
-                        <select id="addStockItemSelect">
-                            <option value="">Select Item</option>
-                            <option value="tShirt">T-shirt</option>
-                            <option value="golfer">Golfer</option>
-                            <option value="jrb">Jacket Royal Blue</option>
-                            <option value="jnb">Jacket Navy Blue</option>
-                            <option value="beanie">Beanie</option>
-                            <option value="skirt">Skirt</option>
-                            <option value="abaya">Abaya</option>
-                            <option value="caps">Caps</option>
-                            <option value="shoes">Shoes</option>
-                            <option value="gloves">Gloves</option>
-                            <option value="dustCoats">Dust Coats</option>
-                            <option value="reflector">Reflector</option>
-                        </select>
+                <div class="form-section">
+                    <h3><i class="fas fa-plus-circle"></i> Add Stock</h3>
+                    <div class="stock-input-group">
+                        <div class="form-group mb-0">
+                            <label for="addStockItemSelect"><i class="fas fa-box"></i> Select Item:</label>
+                            <select id="addStockItemSelect">
+                                <option value="">Select Item</option>
+                                <option value="tShirt">T-shirt</option>
+                                <option value="golfer">Golfer</option>
+                                <option value="jrb">Jacket Royal Blue</option>
+                                <option value="jnb">Jacket Navy Blue</option>
+                                <option value="beanie">Beanie</option>
+                                <option value="skirt">Skirt</option>
+                                <option value="abaya">Abaya</option>
+                                <option value="caps">Caps</option>
+                                <option value="shoes">Shoes</option>
+                                <option value="gloves">Gloves</option>
+                                <option value="dustCoats">Dust Coats</option>
+                                <option value="reflector">Reflector</option>
+                            </select>
+                        </div>
+                        <div class="form-group mb-0">
+                            <label for="addStockSizeColorSelect"><i class="fas fa-ruler"></i> Size/Color:</label>
+                            <select id="addStockSizeColorSelect">
+                                <option value="">Select Size/Color</option>
+                                <option value="XS">XS</option>
+                                <option value="S">S</option>
+                                <option value="M">M</option>
+                                <option value="L">L</option>
+                                <option value="XL">XL</option>
+                                <option value="XXL">XXL</option>
+                                <option value="Royal Blue">Royal Blue</option>
+                                <option value="Navy Blue">Navy Blue</option>
+                                <option value="No Size">No Size</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="Material">Material</option>
+                                <option value="Freezer">Freezer</option>
+                                <option value="Rubber">Rubber</option>
+                                <option value="28">28</option>
+                                <option value="30">30</option>
+                                <option value="32">32</option>
+                                <option value="34">34</option>
+                                <option value="36">36</option>
+                                <option value="38">38</option>
+                                <option value="40">40</option>
+                                <option value="42">42</option>
+                                <option value="44">44</option>
+                            </select>
+                        </div>
+                        <div class="form-group mb-0">
+                            <label for="addStockQuantityInput"><i class="fas fa-plus-circle"></i> Quantity to Add:</label>
+                            <input type="number" id="addStockQuantityInput" min="1" value="1">
+                        </div>
+                        <div class="form-group mb-0">
+                            <label for="addStockCostPrice"><i class="fas fa-tag"></i> Cost Price:</label>
+                            <input type="number" id="addStockCostPrice" min="0" value="0.00" step="0.01">
+                        </div>
+                        <div class="form-group mb-0">
+                            <label for="addStockAdjustedBy"><i class="fas fa-user"></i> Adjusted By:</label>
+                            <input type="text" id="addStockAdjustedBy" placeholder="Name">
+                        </div>
+                        <button type="button" id="addStockBtn" class="add-stock-button"><i class="fas fa-plus"></i> Add Stock</button>
                     </div>
-                    <div class="form-group mb-0">
-                        <label for="addStockSizeColorSelect"><i class="fas fa-ruler"></i> Size/Color:</label>
-                        <select id="addStockSizeColorSelect">
-                            <option value="">N/A</option>
-                            <option value="XS">XS</option>
-                            <option value="S">S</option>
-                            <option value="M">M</option>
-                            <option value="L">L</option>
-                            <option value="XL">XL</option>
-                            <option value="XXL">XXL</option>
-                            <option value="Royal Blue">Royal Blue</option>
-                            <option value="Navy Blue">Navy Blue</option>
-                            <option value="No Size">No Size</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="Material">Material</option>
-                            <option value="Freezer">Freezer</option>
-                            <option value="Rubber">Rubber</option>
-                            <option value="28">28</option>
-                            <option value="30">30</option>
-                            <option value="32">32</option>
-                            <option value="34">34</option>
-                            <option value="36">36</option>
-                            <option value="38">38</option>
-                            <option value="40">40</option>
-                            <option value="42">42</option>
-                            <option value="44">44</option>
-                        </select>
-                    </div>
-                    <div class="form-group mb-0">
-                        <label for="addStockQuantityInput"><i class="fas fa-plus-circle"></i> Quantity to Add:</label>
-                        <input type="number" id="addStockQuantityInput" min="1" value="1">
-                    </div>
-                    <div class="form-group mb-0">
-                        <label for="addStockCostPrice"><i class="fas fa-tag"></i> Cost Price:</label>
-                        <input type="number" id="addStockCostPrice" min="0" value="0.00" step="0.01">
-                    </div>
-                    <div class="form-group mb-0">
-                        <label for="addStockAdjustedBy"><i class="fas fa-user"></i> Adjusted By:</label>
-                        <input type="text" id="addStockAdjustedBy" placeholder="Name">
-                    </div>
-                    <button type="button" id="addStockBtn" class="add-stock-button"><i class="fas fa-plus"></i> Add Stock</button>
                 </div>
 
                 <!-- Manual Stock Adjustment Section -->
-                <div class="stock-input-group">
-                    <div class="form-group mb-0">
-                        <label for="setStockItemSelect"><i class="fas fa-box"></i> Select Item:</label>
-                        <select id="setStockItemSelect">
-                            <option value="">Select Item</option>
-                            <option value="tShirt">T-shirt</option>
-                            <option value="golfer">Golfer</option>
-                            <option value="jrb">Jacket Royal Blue</option>
-                            <option value="jnb">Jacket Navy Blue</option>
-                            <option value="beanie">Beanie</option>
-                            <option value="skirt">Skirt</option>
-                            <option value="abaya">Abaya</option>
-                            <option value="caps">Caps</option>
-                            <option value="shoes">Shoes</option>
-                            <option value="gloves">Gloves</option>
-                            <option value="dustCoats">Dust Coats</option>
-                            <option value="reflector">Reflector</option>
-                        </select>
+                <div class="form-section">
+                    <h3><i class="fas fa-edit"></i> Set Stock Quantity</h3>
+                    <div class="stock-input-group">
+                        <div class="form-group mb-0">
+                            <label for="setStockItemSelect"><i class="fas fa-box"></i> Select Item:</label>
+                            <select id="setStockItemSelect">
+                                <option value="">Select Item</option>
+                                <option value="tShirt">T-shirt</option>
+                                <option value="golfer">Golfer</option>
+                                <option value="jrb">Jacket Royal Blue</option>
+                                <option value="jnb">Jacket Navy Blue</option>
+                                <option value="beanie">Beanie</option>
+                                <option value="skirt">Skirt</option>
+                                <option value="abaya">Abaya</option>
+                                <option value="caps">Caps</option>
+                                <option value="shoes">Shoes</option>
+                                <option value="gloves">Gloves</option>
+                                <option value="dustCoats">Dust Coats</option>
+                                <option value="reflector">Reflector</option>
+                            </select>
+                        </div>
+                        <div class="form-group mb-0">
+                            <label for="setStockSizeColorSelect"><i class="fas fa-ruler"></i> Size/Color:</label>
+                            <select id="setStockSizeColorSelect">
+                                <option value="">Select Size/Color</option>
+                                <option value="XS">XS</option>
+                                <option value="S">S</option>
+                                <option value="M">M</option>
+                                <option value="L">L</option>
+                                <option value="XL">XL</option>
+                                <option value="XXL">XXL</option>
+                                <option value="Royal Blue">Royal Blue</option>
+                                <option value="Navy Blue">Navy Blue</option>
+                                <option value="No Size">No Size</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="Material">Material</option>
+                                <option value="Freezer">Freezer</option>
+                                <option value="Rubber">Rubber</option>
+                                <option value="28">28</option>
+                                <option value="30">30</option>
+                                <option value="32">32</option>
+                                <option value="34">34</option>
+                                <option value="36">36</option>
+                                <option value="38">38</option>
+                                <option value="40">40</option>
+                                <option value="42">42</option>
+                                <option value="44">44</option>
+                            </select>
+                        </div>
+                        <div class="form-group mb-0">
+                            <label for="setStockQuantityInput"><i class="fas fa-edit"></i> Set Stock To:</label>
+                            <input type="number" id="setStockQuantityInput" min="0" value="0">
+                        </div>
+                        <div class="form-group mb-0">
+                            <label for="setStockAdjustedBy"><i class="fas fa-user"></i> Adjusted By:</label>
+                            <input type="text" id="setStockAdjustedBy" placeholder="Name">
+                        </div>
+                        <button type="button" id="setStockBtn" class="set-stock-button"><i class="fas fa-save"></i> Set Stock</button>
                     </div>
-                    <div class="form-group mb-0">
-                        <label for="setStockSizeColorSelect"><i class="fas fa-ruler"></i> Size/Color:</label>
-                        <select id="setStockSizeColorSelect">
-                            <option value="">N/A</option>
-                            <option value="XS">XS</option>
-                            <option value="S">S</option>
-                            <option value="M">M</option>
-                            <option value="L">L</option>
-                            <option value="XL">XL</option>
-                            <option value="XXL">XXL</option>
-                            <option value="Royal Blue">Royal Blue</option>
-                            <option value="Navy Blue">Navy Blue</option>
-                            <option value="No Size">No Size</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="Material">Material</option>
-                            <option value="Freezer">Freezer</option>
-                            <option value="Rubber">Rubber</option>
-                            <option value="28">28</option>
-                            <option value="30">30</option>
-                            <option value="32">32</option>
-                            <option value="34">34</option>
-                            <option value="36">36</option>
-                            <option value="38">38</option>
-                            <option value="40">40</option>
-                            <option value="42">42</option>
-                            <option value="44">44</option>
-                        </select>
-                    </div>
-                    <div class="form-group mb-0">
-                        <label for="setStockQuantityInput"><i class="fas fa-edit"></i> Set Stock To:</label>
-                        <input type="number" id="setStockQuantityInput" min="0" value="0">
-                    </div>
-                    <div class="form-group mb-0">
-                        <label for="setStockAdjustedBy"><i class="fas fa-user"></i> Adjusted By:</label>
-                        <input type="text" id="setStockAdjustedBy" placeholder="Name">
-                    </div>
-                    <button type="button" id="setStockBtn" class="set-stock-button"><i class="fas fa-save"></i> Set Stock</button>
                 </div>
 
-                <div class="stock-buttons">
-                    <div class="form-group mb-0">
-                        <label for="clearStockAdjustedBy"><i class="fas fa-user"></i> Adjusted By:</label>
-                        <input type="text" id="clearStockAdjustedBy" placeholder="Name">
+                <!-- Clear All Stock -->
+                <div class="form-section">
+                    <h3><i class="fas fa-trash"></i> Clear All Stock</h3>
+                    <div class="stock-buttons">
+                        <div class="form-group mb-0">
+                            <label for="clearStockAdjustedBy"><i class="fas fa-user"></i> Adjusted By:</label>
+                            <input type="text" id="clearStockAdjustedBy" placeholder="Name">
+                        </div>
+                        <button type="button" id="clearAllStockBtn" class="clear-stock-button"><i class="fas fa-trash"></i> Clear All Stock</button>
                     </div>
-                    <button type="button" id="clearAllStockBtn" class="clear-stock-button"><i class="fas fa-trash"></i> Clear All Stock</button>
                 </div>
             </div>
         </div>
@@ -1313,7 +1665,7 @@
                 <i class="fas fa-chevron-up section-toggle" id="statsToggle"></i>
             </div>
             <div class="section-content" id="statsContent">
-                <div class="stats-grid">
+                <div class="stats-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <div class="stat-card">
                         <h4><i class="fas fa-file-alt"></i> Total Requests</h4>
                         <p id="totalRequestsStat">0</p>
@@ -1609,6 +1961,65 @@
                         toggle.classList.remove('collapsed');
                     }
                 });
+            });
+        }
+
+        // Quick actions functionality
+        function initQuickActions() {
+            document.getElementById('quickAddStockBtn').addEventListener('click', () => {
+                const stockManagementHeader = document.getElementById('stockManagementHeader');
+                const stockManagementContent = document.getElementById('stockManagementContent');
+                const stockManagementToggle = document.getElementById('stockManagementToggle');
+                
+                // Expand stock management section
+                stockManagementContent.style.maxHeight = stockManagementContent.scrollHeight + "px";
+                stockManagementContent.classList.add('expanded');
+                stockManagementToggle.classList.remove('collapsed');
+                
+                // Scroll to the section
+                stockManagementHeader.scrollIntoView({ behavior: 'smooth' });
+            });
+
+            document.getElementById('quickViewStockBtn').addEventListener('click', () => {
+                const stockLevelsHeader = document.getElementById('stockLevelsHeader');
+                const stockLevelsContent = document.getElementById('stockLevelsContent');
+                const stockLevelsToggle = document.getElementById('stockLevelsToggle');
+                
+                // Expand stock levels section
+                stockLevelsContent.style.maxHeight = stockLevelsContent.scrollHeight + "px";
+                stockLevelsContent.classList.add('expanded');
+                stockLevelsToggle.classList.remove('collapsed');
+                
+                // Scroll to the section
+                stockLevelsHeader.scrollIntoView({ behavior: 'smooth' });
+            });
+
+            document.getElementById('quickViewRequestsBtn').addEventListener('click', () => {
+                const requestsHeader = document.getElementById('requestsHeader');
+                const requestsContent = document.getElementById('requestsContent');
+                const requestsToggle = document.getElementById('requestsToggle');
+                
+                // Expand requests section
+                requestsContent.style.maxHeight = requestsContent.scrollHeight + "px";
+                requestsContent.classList.add('expanded');
+                requestsToggle.classList.remove('collapsed');
+                
+                // Scroll to the section
+                requestsHeader.scrollIntoView({ behavior: 'smooth' });
+            });
+
+            document.getElementById('quickViewStatsBtn').addEventListener('click', () => {
+                const statsHeader = document.getElementById('statsHeader');
+                const statsContent = document.getElementById('statsContent');
+                const statsToggle = document.getElementById('statsToggle');
+                
+                // Expand stats section
+                statsContent.style.maxHeight = statsContent.scrollHeight + "px";
+                statsContent.classList.add('expanded');
+                statsToggle.classList.remove('collapsed');
+                
+                // Scroll to the section
+                statsHeader.scrollIntoView({ behavior: 'smooth' });
             });
         }
 
@@ -2079,6 +2490,7 @@
             // Initialize theme and collapsible sections
             initTheme();
             initCollapsibleSections();
+            initQuickActions();
             
             // Initialize Firebase
             initializeFirebaseWithRetry();
