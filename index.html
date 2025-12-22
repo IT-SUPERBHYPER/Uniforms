@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Uniform Request Form</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
     <style>
         /* Custom CSS for girly theme */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
@@ -382,6 +383,17 @@
             box-shadow: 0 10px 15px -3px rgba(255, 64, 129, 0.3);
         }
 
+        button.dispatch-button {
+            background: linear-gradient(135deg, var(--success), #2e7d32);
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(76, 175, 80, 0.3);
+        }
+
+        button.dispatch-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(76, 175, 80, 0.3);
+        }
+
         .message-box {
             position: fixed;
             top: 50%;
@@ -534,6 +546,14 @@
             background: linear-gradient(90deg, var(--info), #1976d2);
         }
 
+        .pending-dispatch-category::before {
+            background: linear-gradient(90deg, var(--warning), #ff9800);
+        }
+
+        .dispatched-category::before {
+            background: linear-gradient(90deg, var(--success), #4caf50);
+        }
+
         .request-list-category:hover {
             transform: translateY(-3px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -555,11 +575,20 @@
             margin-bottom: 12px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
             transition: all 0.3s ease;
+            position: relative;
         }
 
         .request-item:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .request-item.pending-dispatch {
+            border-left: 4px solid var(--warning);
+        }
+
+        .request-item.dispatched {
+            border-left: 4px solid var(--success);
         }
 
         .request-item p {
@@ -586,6 +615,103 @@
             color: var(--text-secondary);
             font-size: 0.85rem;
             line-height: 1.4;
+        }
+
+        .request-item-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .request-item-actions button {
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            min-width: 0;
+            flex: none;
+        }
+
+        .signature-box {
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            background: white;
+            cursor: crosshair;
+            touch-action: none !important;
+            user-select: none !important;
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+            width: 100%;
+            height: 200px;
+            display: block;
+            position: relative;
+        }
+
+        .signature-pad-container {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+
+        .signature-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .signature-actions button {
+            min-width: 120px;
+        }
+
+        .signature-display {
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 10px;
+            background: white;
+            margin-top: 10px;
+            max-width: 300px;
+        }
+
+        .signature-display img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* New styles for signature display in dispatched items */
+        .signature-display-small {
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            padding: 5px;
+            background: white;
+            margin-top: 8px;
+            max-width: 200px;
+        }
+
+        .signature-display-small img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .signature-thumbnail {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+            margin-left: 10px;
+        }
+
+        .signature-thumbnail.has-signature {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
         }
 
         .user-id-display {
@@ -968,6 +1094,109 @@
             font-size: 0.9rem;
         }
 
+        /* Status badges */
+        .status-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        .status-dispatched {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .status-charged {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status-uncharged {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        /* Dispatch status section */
+        .dispatch-status-info {
+            background: var(--card-bg);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 10px;
+            border-left: 4px solid var(--info);
+        }
+
+        .dispatch-status-info p {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Signature Modal Styles */
+        #signatureModal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            display: none;
+            text-align: center;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            opacity: 0;
+            max-width: 95%;
+            width: 700px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        #signatureModal.show {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        #signatureModal h3 {
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1999;
+            display: none;
+        }
+
+        .modal-backdrop.show {
+            display: block;
+        }
+
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .container {
@@ -1031,13 +1260,46 @@
             .items-grid {
                 grid-template-columns: 1fr;
             }
+
+            .request-item-actions {
+                flex-direction: column;
+            }
+
+            .signature-actions {
+                flex-direction: column;
+            }
+
+            #signatureModal {
+                width: 95%;
+                padding: 15px;
+            }
+        }
+
+        /* Additional fixes for signature pad */
+        #signaturePad {
+            touch-action: none !important;
+            user-select: none !important;
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+        }
+
+        .signature-pad-container canvas {
+            touch-action: none !important;
+            -webkit-touch-callout: none !important;
+            -webkit-user-select: none !important;
+            -khtml-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+            user-select: none !important;
         }
     </style>
+<base target="_blank">
 </head>
 <body>
     <div class="container">
         <div class="dashboard-header">
-            <h1><i class="fas fa-tshirt"></i> Uniform Request Management</h1>
+            <h1><i class="fas fa-tshirt"></i> Uniform Request & Dispatch Management</h1>
             <div class="user-id-display">
                 <div class="connection-status" id="connectionStatus"></div>
                 <div><i class="fas fa-user-circle"></i> <span id="userIdText">Loading user ID...</span></div>
@@ -1062,6 +1324,14 @@
                 <p id="unchargedRequestsStat">0</p>
             </div>
             <div class="dashboard-stat">
+                <h3><i class="fas fa-truck"></i> Pending Dispatch</h3>
+                <p id="pendingDispatchStat">0</p>
+            </div>
+            <div class="dashboard-stat">
+                <h3><i class="fas fa-check-circle"></i> Dispatched</h3>
+                <p id="dispatchedStat">0</p>
+            </div>
+            <div class="dashboard-stat">
                 <h3><i class="fas fa-boxes"></i> Total Items</h3>
                 <p id="totalItemsStat">0</p>
             </div>
@@ -1077,6 +1347,9 @@
             </div>
             <div class="quick-action-btn" id="quickViewRequestsBtn">
                 <i class="fas fa-list-alt"></i> View Requests
+            </div>
+            <div class="quick-action-btn" id="quickDispatchRequestsBtn">
+                <i class="fas fa-truck"></i> Dispatch Requests
             </div>
             <div class="quick-action-btn" id="quickViewStatsBtn">
                 <i class="fas fa-chart-pie"></i> View Stats
@@ -1614,6 +1887,33 @@
             </div>
         </div>
 
+        <!-- Dispatch Requests Section -->
+        <div class="collapsible-section">
+            <div class="section-header" id="dispatchHeader">
+                <div class="section-title">
+                    <i class="fas fa-truck"></i> Dispatch Uniforms
+                </div>
+                <i class="fas fa-chevron-up section-toggle" id="dispatchToggle"></i>
+            </div>
+            <div class="section-content" id="dispatchContent">
+                <div class="request-list-categories-wrapper">
+                    <div class="request-list-category pending-dispatch-category">
+                        <h3><i class="fas fa-clock"></i> Pending Dispatch</h3>
+                        <div id="pendingDispatchContainer">
+                            <p class="text-gray-500 text-center" id="noPendingDispatchMessage">No pending dispatch requests.</p>
+                        </div>
+                    </div>
+
+                    <div class="request-list-category dispatched-category">
+                        <h3><i class="fas fa-check-circle"></i> Dispatched</h3>
+                        <div id="dispatchedContainer">
+                            <p class="text-gray-500 text-center" id="noDispatchedMessage">No uniforms have been dispatched yet.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Current Stock Levels Section -->
         <div class="collapsible-section">
             <div class="section-header" id="stockLevelsHeader">
@@ -1633,7 +1933,7 @@
         <div class="collapsible-section">
             <div class="section-header" id="requestsHeader">
                 <div class="section-title">
-                    <i class="fas fa-list-alt"></i> Submitted Requests
+                    <i class="fas fa-list-alt"></i> All Requests
                 </div>
                 <i class="fas fa-chevron-up section-toggle" id="requestsToggle"></i>
             </div>
@@ -1668,19 +1968,27 @@
                 <div class="stats-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <div class="stat-card">
                         <h4><i class="fas fa-file-alt"></i> Total Requests</h4>
-                        <p id="totalRequestsStat">0</p>
+                        <p id="totalRequestsStat2">0</p>
                     </div>
                     <div class="stat-card">
                         <h4><i class="fas fa-money-bill-wave"></i> Charged Requests</h4>
-                        <p id="chargedRequestsStat">0</p>
+                        <p id="chargedRequestsStat2">0</p>
                     </div>
                     <div class="stat-card">
                         <h4><i class="fas fa-gift"></i> Uncharged Requests</h4>
-                        <p id="unchargedRequestsStat">0</p>
+                        <p id="unchargedRequestsStat2">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4><i class="fas fa-truck"></i> Pending Dispatch</h4>
+                        <p id="pendingDispatchStat2">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4><i class="fas fa-check-circle"></i> Dispatched</h4>
+                        <p id="dispatchedStat2">0</p>
                     </div>
                     <div class="stat-card">
                         <h4><i class="fas fa-boxes"></i> Total Items</h4>
-                        <p id="totalItemsStat">0</p>
+                        <p id="totalItemsStat2">0</p>
                     </div>
                     <div class="stat-card">
                         <h4><i class="fas fa-money-check-alt"></i> Total Charged Cost</h4>
@@ -1852,11 +2160,38 @@
         </div>
     </div>
 
+    <!-- Modal Backdrop -->
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+
+    <!-- Signature Capture Modal -->
+    <div id="signatureModal">
+        <h3><i class="fas fa-signature"></i> Employee Signature for Uniform Receipt</h3>
+        <div id="dispatchRequestInfo" style="margin: 15px 0;">
+            <!-- Request details will be displayed here -->
+        </div>
+        
+        <div class="signature-pad-container">
+            <label style="display: block; margin-bottom: 10px; font-weight: 600; color: var(--text-primary);">
+                <i class="fas fa-pen"></i> Please sign below to acknowledge receipt of uniform items:
+            </label>
+            <canvas id="signaturePad" class="signature-box"></canvas>
+            <div class="signature-actions">
+                <button type="button" id="clearSignatureBtn" class="reset-button"><i class="fas fa-eraser"></i> Clear Signature</button>
+                <button type="button" id="cancelSignatureBtn" class="clear-button"><i class="fas fa-times"></i> Cancel</button>
+                <button type="button" id="saveSignatureBtn" class="dispatch-button"><i class="fas fa-check"></i> Confirm & Dispatch</button>
+            </div>
+        </div>
+        
+        <div style="margin-top: 15px; color: var(--text-secondary); font-size: 0.85rem;">
+            <p><i class="fas fa-info-circle"></i> <strong>Instructions:</strong> Sign using your mouse or touch screen. Click "Clear Signature" to start over.</p>
+        </div>
+    </div>
+
     <script type="module">
         // Firebase imports
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-        import { getFirestore, collection, addDoc, query, onSnapshot, getDocs, deleteDoc, doc, writeBatch, serverTimestamp, runTransaction, setDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, query, onSnapshot, getDocs, deleteDoc, doc, writeBatch, serverTimestamp, runTransaction, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
         // Global variables for Canvas environment
         let appId = 'default-app-id';
@@ -1877,6 +2212,8 @@
         let currentStock = {};
         let retryCount = 0;
         const maxRetries = 3;
+        let signaturePad = null;
+        let currentRequestForDispatch = null;
 
         // Define possible sizes and colors
         const sizes = ["XS", "S", "M", "L", "XL", "XXL"];
@@ -1928,6 +2265,7 @@
             const sections = [
                 { header: 'requestFormHeader', content: 'requestFormContent', toggle: 'requestFormToggle', defaultExpanded: true },
                 { header: 'stockManagementHeader', content: 'stockManagementContent', toggle: 'stockManagementToggle', defaultExpanded: false },
+                { header: 'dispatchHeader', content: 'dispatchContent', toggle: 'dispatchToggle', defaultExpanded: false },
                 { header: 'stockLevelsHeader', content: 'stockLevelsContent', toggle: 'stockLevelsToggle', defaultExpanded: false },
                 { header: 'requestsHeader', content: 'requestsContent', toggle: 'requestsToggle', defaultExpanded: false },
                 { header: 'statsHeader', content: 'statsContent', toggle: 'statsToggle', defaultExpanded: false },
@@ -2008,6 +2346,20 @@
                 requestsHeader.scrollIntoView({ behavior: 'smooth' });
             });
 
+            document.getElementById('quickDispatchRequestsBtn').addEventListener('click', () => {
+                const dispatchHeader = document.getElementById('dispatchHeader');
+                const dispatchContent = document.getElementById('dispatchContent');
+                const dispatchToggle = document.getElementById('dispatchToggle');
+                
+                // Expand dispatch section
+                dispatchContent.style.maxHeight = dispatchContent.scrollHeight + "px";
+                dispatchContent.classList.add('expanded');
+                dispatchToggle.classList.remove('collapsed');
+                
+                // Scroll to the section
+                dispatchHeader.scrollIntoView({ behavior: 'smooth' });
+            });
+
             document.getElementById('quickViewStatsBtn').addEventListener('click', () => {
                 const statsHeader = document.getElementById('statsHeader');
                 const statsContent = document.getElementById('statsContent');
@@ -2080,6 +2432,134 @@
             setTimeout(() => messageBox.classList.add('show'), 10);
         }
 
+        // Function to initialize signature pad
+        function initializeSignaturePad() {
+            const canvas = document.getElementById('signaturePad');
+            
+            // Wait for the modal to be fully visible
+            setTimeout(() => {
+                // Ensure canvas is properly sized
+                const rect = canvas.getBoundingClientRect();
+                const dpr = window.devicePixelRatio || 1;
+                
+                // Set display size (CSS)
+                canvas.style.width = '100%';
+                canvas.style.height = '200px';
+                
+                // Set actual size in memory
+                canvas.width = canvas.offsetWidth * dpr;
+                canvas.height = 200 * dpr;
+                
+                // Scale drawing context to match device pixel ratio
+                const context = canvas.getContext('2d');
+                context.scale(dpr, dpr);
+                
+                // Create signature pad with proper configuration
+                signaturePad = new SignaturePad(canvas, {
+                    backgroundColor: 'white',
+                    penColor: 'black',
+                    minWidth: 0.5,
+                    maxWidth: 2.5,
+                    velocityFilterWeight: 0.7,
+                    throttle: 16
+                });
+
+                // Add comprehensive touch event handling
+                function preventDefaultTouch(e) {
+                    e.preventDefault();
+                }
+
+                // Prevent scrolling when touching canvas
+                canvas.addEventListener('touchstart', preventDefaultTouch, { passive: false });
+                canvas.addEventListener('touchmove', preventDefaultTouch, { passive: false });
+                canvas.addEventListener('touchend', preventDefaultTouch, { passive: false });
+                
+                // Ensure canvas has proper CSS for touch
+                canvas.style.touchAction = 'none';
+                canvas.style.userSelect = 'none';
+                canvas.style.webkitUserSelect = 'none';
+                canvas.style.mozUserSelect = 'none';
+                canvas.style.msUserSelect = 'none';
+                
+                console.log("Signature pad initialized successfully");
+            }, 100); // Small delay to ensure DOM is ready
+        }
+
+        // Function to show signature modal
+        function showSignatureModal(request) {
+            currentRequestForDispatch = request;
+            
+            // Display request details in modal
+            const dispatchInfoDiv = document.getElementById('dispatchRequestInfo');
+            dispatchInfoDiv.innerHTML = `
+                <div style="background: var(--bg-secondary); padding: 15px; border-radius: 10px; border-left: 4px solid var(--info);">
+                    <p style="margin-bottom: 8px;"><strong><i class="fas fa-user"></i> Employee:</strong> ${request.names}</p>
+                    <p style="margin-bottom: 8px;"><strong><i class="fas fa-clock"></i> Clock No:</strong> ${request.clockNo}</p>
+                    <p style="margin-bottom: 8px;"><strong><i class="fas fa-calendar-alt"></i> Request Date:</strong> ${request.date}</p>
+                    <p style="margin-bottom: 8px;"><strong><i class="fas fa-tags"></i> Category:</strong> ${request.category}</p>
+                    <p style="margin-bottom: 8px;"><strong><i class="fas fa-boxes"></i> Total Items:</strong> ${request.totalItems}</p>
+                    <p><strong><i class="fas fa-money-bill-wave"></i> Total Cost:</strong> ${formatCurrency(request.totalCost || 0)}</p>
+                </div>
+                <div style="margin-top: 10px; padding: 10px; background: #fff3cd; border-radius: 5px; border: 1px solid #ffc107;">
+                    <p style="margin: 0; font-weight: 600; color: #856404;">
+                        <i class="fas fa-exclamation-triangle"></i> Please sign to confirm receipt of the above uniform items.
+                    </p>
+                </div>
+            `;
+            
+            // Show backdrop
+            document.getElementById('modalBackdrop').classList.add('show');
+            
+            // Show modal
+            const signatureModal = document.getElementById('signatureModal');
+            signatureModal.style.display = 'block';
+            
+            // Force a reflow to ensure proper rendering
+            signatureModal.offsetHeight;
+            
+            setTimeout(() => {
+                signatureModal.classList.add('show');
+                
+                // Initialize or reinitialize signature pad
+                if (!signaturePad) {
+                    initializeSignaturePad();
+                } else {
+                    // Clear any existing signature
+                    signaturePad.clear();
+                    
+                    // Reinitialize canvas sizing
+                    const canvas = document.getElementById('signaturePad');
+                    const rect = canvas.getBoundingClientRect();
+                    const dpr = window.devicePixelRatio || 1;
+                    
+                    canvas.width = rect.width * dpr;
+                    canvas.height = 200 * dpr;
+                    
+                    const context = canvas.getContext('2d');
+                    context.scale(dpr, dpr);
+                }
+            }, 10);
+        }
+
+        // Function to hide signature modal
+        function hideSignatureModal() {
+            const signatureModal = document.getElementById('signatureModal');
+            signatureModal.classList.remove('show');
+            
+            // Hide backdrop
+            document.getElementById('modalBackdrop').classList.remove('show');
+            
+            setTimeout(() => {
+                signatureModal.style.display = 'none';
+                currentRequestForDispatch = null;
+                
+                // Clear signature
+                if (signaturePad) {
+                    signaturePad.clear();
+                }
+            }, 300);
+        }
+
         // Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyCm159uTnKBY-3Fu6bSK2dqWUJd1HJFvWg",
@@ -2095,7 +2575,6 @@
         async function initializeFirebaseWithRetry() {
             if (retryCount >= maxRetries) {
                 console.error("Max retry attempts reached for Firebase initialization.");
-                document.getElementById('userIdText').innerHTML = `<i class="fas fa-exclamation-triangle"></i> Failed to connect after ${maxRetries} attempts`;
                 return;
             }
 
@@ -2193,16 +2672,19 @@
         const quantityInputs = document.querySelectorAll('input[type="number"][id$="Qty"]');
         const totalItemsInput = document.getElementById('total');
         const totalCostInput = document.getElementById('totalCost');
+        const pendingDispatchContainer = document.getElementById('pendingDispatchContainer');
+        const dispatchedContainer = document.getElementById('dispatchedContainer');
         const chargedRequestsContainer = document.getElementById('chargedRequestsContainer');
         const unchargedRequestsContainer = document.getElementById('unchargedRequestsContainer');
+        const noPendingDispatchMessage = document.getElementById('noPendingDispatchMessage');
+        const noDispatchedMessage = document.getElementById('noDispatchedMessage');
         const noChargedRequestsMessage = document.getElementById('noChargedRequestsMessage');
         const noUnchargedRequestsMessage = document.getElementById('noUnchargedRequestsMessage');
         const clearAllDataBtn = document.getElementById('clearAllDataBtn');
         const toggleStatsBtn = document.getElementById('toggleStatsBtn');
-        const statsSection = document.getElementById('statsSection');
+        const detailedStockDisplay = document.getElementById('detailedStockDisplay');
         const stockHistoryContainer = document.getElementById('stockHistoryContainer');
         const noStockHistoryMessage = document.getElementById('noStockHistoryMessage');
-        const detailedStockDisplay = document.getElementById('detailedStockDisplay');
 
         // Stock Management Elements
         const addStockItemSelect = document.getElementById('addStockItemSelect');
@@ -2367,7 +2849,7 @@
             });
         }
 
-        // Function to update the total stock for each item in the stats section
+        // Function to update total stock for each item in the stats section
         function updateTotalStockStats() {
             for (const itemType in itemMap) {
                 const totalStockStatElement = document.getElementById(itemMap[itemType].currentStockStatId);
@@ -2494,48 +2976,152 @@
             
             // Initialize Firebase
             initializeFirebaseWithRetry();
+            
+            // Initialize signature pad with delay
+            setTimeout(() => {
+                initializeSignaturePad();
+            }, 1500);
+            
+            // Add fallback initialization
+            const signatureModal = document.getElementById('signatureModal');
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                        if (signatureModal.classList.contains('show')) {
+                            setTimeout(() => {
+                                if (!signaturePad) {
+                                    initializeSignaturePad();
+                                }
+                            }, 100);
+                        }
+                    }
+                });
+            });
+
+            observer.observe(signatureModal, { attributes: true });
         });
 
         // Theme toggle event listener
         themeToggle.addEventListener('click', toggleTheme);
 
-        // Function to create a request item HTML element
+        // Function to create a request item HTML element with dispatch functionality and signature display
         function createRequestItemHtml(request) {
             const requestDiv = document.createElement('div');
-            requestDiv.className = 'request-item';
-            requestDiv.innerHTML = `
-                <p><strong><i class="fas fa-calendar-alt"></i> Date:</strong> ${request.date}</p>
-                <p><strong><i class="fas fa-clock"></i> Clock No.:</strong> ${request.clockNo}</p>
-                <p><strong><i class="fas fa-user"></i> Names:</strong> ${request.names}</p>
-                <p><strong><i class="fas fa-tags"></i> Category:</strong> ${request.category || 'N/A'}</p>
-                <p><strong><i class="fas fa-boxes"></i> Total Items:</strong> ${request.totalItems}</p>
-                <p><strong><i class="fas fa-money-bill-wave"></i> Total Cost:</strong> ${formatCurrency(request.totalCost || 0)}</p>
-                <p><strong><i class="fas fa-box"></i> Items Requested:</strong></p>
-                <ul>
-                    ${Object.entries(request.items).map(([key, item]) => {
-                        if (item.quantity > 0) {
-                            const itemPriceAtRequest = item.itemPrice !== undefined ? item.itemPrice : (currentStock[key]?.costPrice !== undefined ? currentStock[key].costPrice : 0);
-                            const itemTotal = item.quantity * itemPriceAtRequest;
-                            return `<li><i class="fas fa-tshirt"></i> ${itemMap[key] ? itemMap[key].name : key}: Qty ${item.quantity}, Size/Color: ${item.size || item.color || item.type || 'N/A'} (Cost: ${formatCurrency(itemTotal)})</li>`;
-                        }
-                        return '';
-                    }).join('')}
-                </ul>
-                <p><strong><i class="fas fa-signature"></i> Supervisor Sign:</strong> ${request.supervisorSign || 'N/A'}</p>
-                <p><strong><i class="fas fa-signature"></i> Employee Sign:</strong> ${request.employeeSign || 'N/A'}</p>
-                <p class="text-xs text-gray-400 mt-2"><i class="fas fa-clock"></i> Submitted: ${request.timestamp ? new Date(request.timestamp.toDate()).toLocaleString() : 'N/A'}</p>
-            `;
+            
+            // Determine status class and badge
+            let statusClass = '';
+            let statusBadge = '';
+            let dispatchActions = '';
+            let signatureDisplay = '';
+            
+            if (request.dispatchStatus === 'dispatched') {
+                statusClass = 'dispatched';
+                statusBadge = '<span class="status-badge status-dispatched"><i class="fas fa-check-circle"></i> Dispatched</span>';
+                
+                // Show dispatch info if available
+                let dispatchInfo = '';
+                if (request.dispatchDate) {
+                    const dispatchDate = request.dispatchDate.toDate ? request.dispatchDate.toDate() : new Date(request.dispatchDate);
+                    dispatchInfo = `
+                        <div class="dispatch-status-info">
+                            <p><strong><i class="fas fa-truck"></i> Dispatched On:</strong> ${dispatchDate.toLocaleString()}</p>
+                            ${request.dispatchedBy ? `<p><strong><i class="fas fa-user-check"></i> Dispatched By:</strong> ${request.dispatchedBy}</p>` : ''}
+                            ${request.employeeReceiptSignature ? `
+                                <p><strong><i class="fas fa-signature"></i> Employee Signature:</strong> 
+                                    <span class="signature-thumbnail has-signature">
+                                        <i class="fas fa-check"></i> Recorded
+                                    </span>
+                                </p>
+                                <div class="signature-display-small">
+                                    <img src="${request.employeeReceiptSignature}" alt="Employee Signature">
+                                </div>
+                            ` : '<p><strong><i class="fas fa-signature"></i> Employee Signature:</strong> <span class="signature-thumbnail">Not Available</span></p>'}
+                        </div>
+                    `;
+                }
+                
+                requestDiv.className = `request-item ${statusClass}`;
+                requestDiv.innerHTML = `
+                    ${statusBadge}
+                    <p><strong><i class="fas fa-calendar-alt"></i> Date:</strong> ${request.date}</p>
+                    <p><strong><i class="fas fa-clock"></i> Clock No.:</strong> ${request.clockNo}</p>
+                    <p><strong><i class="fas fa-user"></i> Names:</strong> ${request.names}</p>
+                    <p><strong><i class="fas fa-tags"></i> Category:</strong> ${request.category || 'N/A'} ${request.category === 'Charged' ? '<span class="status-badge status-charged">Charged</span>' : '<span class="status-badge status-uncharged">Uncharged</span>'}</p>
+                    <p><strong><i class="fas fa-boxes"></i> Total Items:</strong> ${request.totalItems}</p>
+                    <p><strong><i class="fas fa-money-bill-wave"></i> Total Cost:</strong> ${formatCurrency(request.totalCost || 0)}</p>
+                    <p><strong><i class="fas fa-box"></i> Items Requested:</strong></p>
+                    <ul>
+                        ${Object.entries(request.items).map(([key, item]) => {
+                            if (item.quantity > 0) {
+                                const itemPriceAtRequest = item.itemPrice !== undefined ? item.itemPrice : (currentStock[key]?.costPrice !== undefined ? currentStock[key].costPrice : 0);
+                                const itemTotal = item.quantity * itemPriceAtRequest;
+                                return `<li><i class="fas fa-tshirt"></i> ${itemMap[key] ? itemMap[key].name : key}: Qty ${item.quantity}, Size/Color: ${item.size || item.color || item.type || 'N/A'} (Cost: ${formatCurrency(itemTotal)})</li>`;
+                            }
+                            return '';
+                        }).join('')}
+                    </ul>
+                    <p><strong><i class="fas fa-signature"></i> Supervisor Sign:</strong> ${request.supervisorSign || 'N/A'}</p>
+                    <p><strong><i class="fas fa-signature"></i> Employee Sign:</strong> ${request.employeeSign || 'N/A'}</p>
+                    ${dispatchInfo}
+                    <p class="text-xs text-gray-400 mt-2"><i class="fas fa-clock"></i> Submitted: ${request.timestamp ? new Date(request.timestamp.toDate()).toLocaleString() : 'N/A'}</p>
+                `;
+            } else {
+                // Pending dispatch
+                statusClass = 'pending-dispatch';
+                statusBadge = '<span class="status-badge status-pending"><i class="fas fa-clock"></i> Pending Dispatch</span>';
+                
+                dispatchActions = `
+                    <div class="request-item-actions">
+                        <button type="button" class="dispatch-button" data-request-id="${request.id}">
+                            <i class="fas fa-truck"></i> Dispatch Now
+                        </button>
+                    </div>
+                `;
+                
+                requestDiv.className = `request-item ${statusClass}`;
+                requestDiv.innerHTML = `
+                    ${statusBadge}
+                    <p><strong><i class="fas fa-calendar-alt"></i> Date:</strong> ${request.date}</p>
+                    <p><strong><i class="fas fa-clock"></i> Clock No.:</strong> ${request.clockNo}</p>
+                    <p><strong><i class="fas fa-user"></i> Names:</strong> ${request.names}</p>
+                    <p><strong><i class="fas fa-tags"></i> Category:</strong> ${request.category || 'N/A'} ${request.category === 'Charged' ? '<span class="status-badge status-charged">Charged</span>' : '<span class="status-badge status-uncharged">Uncharged</span>'}</p>
+                    <p><strong><i class="fas fa-boxes"></i> Total Items:</strong> ${request.totalItems}</p>
+                    <p><strong><i class="fas fa-money-bill-wave"></i> Total Cost:</strong> ${formatCurrency(request.totalCost || 0)}</p>
+                    <p><strong><i class="fas fa-box"></i> Items Requested:</strong></p>
+                    <ul>
+                        ${Object.entries(request.items).map(([key, item]) => {
+                            if (item.quantity > 0) {
+                                const itemPriceAtRequest = item.itemPrice !== undefined ? item.itemPrice : (currentStock[key]?.costPrice !== undefined ? currentStock[key].costPrice : 0);
+                                const itemTotal = item.quantity * itemPriceAtRequest;
+                                return `<li><i class="fas fa-tshirt"></i> ${itemMap[key] ? itemMap[key].name : key}: Qty ${item.quantity}, Size/Color: ${item.size || item.color || item.type || 'N/A'} (Cost: ${formatCurrency(itemTotal)})</li>`;
+                            }
+                            return '';
+                        }).join('')}
+                    </ul>
+                    <p><strong><i class="fas fa-signature"></i> Supervisor Sign:</strong> ${request.supervisorSign || 'N/A'}</p>
+                    <p><strong><i class="fas fa-signature"></i> Employee Sign:</strong> ${request.employeeSign || 'N/A'}</p>
+                    ${dispatchActions}
+                    <p class="text-xs text-gray-400 mt-2"><i class="fas fa-clock"></i> Submitted: ${request.timestamp ? new Date(request.timestamp.toDate()).toLocaleString() : 'N/A'}</p>
+                `;
+            }
+
             return requestDiv;
         }
 
+        // [Rest of the previous JavaScript code remains the same until the renderRequests function]
+
         // Function to render requests into their respective containers and calculate stats
         function renderRequests(requests) {
+            pendingDispatchContainer.innerHTML = '';
+            dispatchedContainer.innerHTML = '';
             chargedRequestsContainer.innerHTML = '';
             unchargedRequestsContainer.innerHTML = '';
 
             let totalRequests = requests.length;
             let chargedRequestsCount = 0;
             let unchargedRequestsCount = 0;
+            let pendingDispatchCount = 0;
+            let dispatchedCount = 0;
             let totalItemsAcrossAllRequests = 0;
             let totalChargedCost = 0;
             let totalUnchargedCost = 0;
@@ -2558,18 +3144,44 @@
             requests.forEach(request => {
                 const requestDiv = createRequestItemHtml(request);
 
+                // Add event listener for dispatch buttons
+                if (request.dispatchStatus !== 'dispatched') {
+                    const dispatchBtn = requestDiv.querySelector('.dispatch-button');
+                    if (dispatchBtn) {
+                        dispatchBtn.addEventListener('click', () => {
+                            showSignatureModal(request);
+                        });
+                    }
+                }
+
+                // Categorize by dispatch status
+                if (request.dispatchStatus === 'dispatched') {
+                    dispatchedCount++;
+                    dispatchedContainer.appendChild(requestDiv);
+                } else {
+                    pendingDispatchCount++;
+                    pendingDispatchContainer.appendChild(requestDiv);
+                }
+
+                // Also categorize by charge type for the requests section
                 if (request.category === 'Charged') {
                     chargedRequestsCount++;
-                    chargedRequestsContainer.appendChild(requestDiv);
-                    totalChargedCost += request.totalCost || 0;
+                    chargedRequestsContainer.appendChild(requestDiv.cloneNode(true));
                 } else if (request.category === 'Uncharged') {
                     unchargedRequestsCount++;
-                    unchargedRequestsContainer.appendChild(requestDiv);
+                    unchargedRequestsContainer.appendChild(requestDiv.cloneNode(true));
+                }
+
+                // Update statistics
+                if (request.category === 'Charged') {
+                    totalChargedCost += request.totalCost || 0;
+                } else if (request.category === 'Uncharged') {
                     totalUnchargedCost += request.totalCost || 0;
                 }
 
                 totalItemsAcrossAllRequests += request.totalItems || 0;
 
+                // Update item-wise statistics
                 for (const itemType in request.items) {
                     const quantity = request.items[itemType].quantity || 0;
                     const itemPriceAtRequest = request.items[itemType].itemPrice !== undefined ? request.items[itemType].itemPrice : (currentStock[itemType]?.costPrice !== undefined ? currentStock[itemType].costPrice : 0);
@@ -2588,6 +3200,19 @@
                 }
             });
 
+            // Update message displays
+            if (pendingDispatchCount === 0) {
+                noPendingDispatchMessage.style.display = 'block';
+            } else {
+                noPendingDispatchMessage.style.display = 'none';
+            }
+
+            if (dispatchedCount === 0) {
+                noDispatchedMessage.style.display = 'block';
+            } else {
+                noDispatchedMessage.style.display = 'none';
+            }
+
             if (chargedRequestsCount === 0) {
                 noChargedRequestsMessage.style.display = 'block';
             } else {
@@ -2600,13 +3225,25 @@
                 noUnchargedRequestsMessage.style.display = 'none';
             }
 
+            // Update dashboard stats
             document.getElementById('totalRequestsStat').innerText = totalRequests;
             document.getElementById('chargedRequestsStat').innerText = chargedRequestsCount;
             document.getElementById('unchargedRequestsStat').innerText = unchargedRequestsCount;
+            document.getElementById('pendingDispatchStat').innerText = pendingDispatchCount;
+            document.getElementById('dispatchedStat').innerText = dispatchedCount;
             document.getElementById('totalItemsStat').innerText = totalItemsAcrossAllRequests;
+
+            // Update stats section
+            document.getElementById('totalRequestsStat2').innerText = totalRequests;
+            document.getElementById('chargedRequestsStat2').innerText = chargedRequestsCount;
+            document.getElementById('unchargedRequestsStat2').innerText = unchargedRequestsCount;
+            document.getElementById('pendingDispatchStat2').innerText = pendingDispatchCount;
+            document.getElementById('dispatchedStat2').innerText = dispatchedCount;
+            document.getElementById('totalItemsStat2').innerText = totalItemsAcrossAllRequests;
             document.getElementById('totalChargedCostStat').innerText = formatCurrency(totalChargedCost);
             document.getElementById('totalUnchargedCostStat').innerText = formatCurrency(totalUnchargedCost);
 
+            // Update item statistics
             document.getElementById('tShirtTotalStat').innerText = itemRequestStats.tShirt.total;
             document.getElementById('tShirtChargedStat').innerText = itemRequestStats.tShirt.charged;
             document.getElementById('tShirtUnchargedStat').innerText = itemRequestStats.tShirt.uncharged;
@@ -2624,12 +3261,6 @@
             document.getElementById('jrbUnchargedStat').innerText = itemRequestStats.jrb.uncharged;
             document.getElementById('jrbChargedCostStat').innerText = formatCurrency(itemRequestStats.jrb.chargedCost);
             document.getElementById('jrbUnchargedCostStat').innerText = formatCurrency(itemRequestStats.jrb.unchargedCost);
-
-            document.getElementById('jnbTotalStat').innerText = itemRequestStats.jnb.total;
-            document.getElementById('jnbChargedStat').innerText = itemRequestStats.jnb.charged;
-            document.getElementById('jnbUnchargedStat').innerText = itemRequestStats.jnb.uncharged;
-            document.getElementById('jnbChargedCostStat').innerText = formatCurrency(itemRequestStats.jnb.chargedCost);
-            document.getElementById('jnbUnchargedCostStat').innerText = formatCurrency(itemRequestStats.jnb.unchargedCost);
 
             document.getElementById('beanieTotalStat').innerText = itemRequestStats.beanie.total;
             document.getElementById('beanieChargedStat').innerText = itemRequestStats.beanie.charged;
@@ -2794,7 +3425,8 @@
                 supervisorSign: document.getElementById('supervisorSign').value,
                 employeeSign: document.getElementById('employeeSign').value,
                 timestamp: serverTimestamp(),
-                submittedBy: currentUserId
+                submittedBy: currentUserId,
+                dispatchStatus: 'pending' // New requests start as pending dispatch
             };
 
             if (!formData.date || !formData.clockNo || !formData.names || !formData.category) {
@@ -2875,7 +3507,7 @@
                 });
 
                 console.log("Uniform request submitted and stock updated successfully.");
-                showMessageBox("Uniform request submitted successfully!");
+                showMessageBox("Uniform request submitted successfully! The request is now pending dispatch.");
                 uniformForm.reset();
                 calculateTotals();
             }
@@ -3282,7 +3914,83 @@
             });
         });
 
-        console.log("Uniform Request Application script loaded and initialized.");
+        // Clear signature button
+        document.getElementById('clearSignatureBtn').addEventListener('click', () => {
+            if (signaturePad) {
+                signaturePad.clear();
+            }
+        });
+
+        // Cancel signature button
+        document.getElementById('cancelSignatureBtn').addEventListener('click', () => {
+            hideSignatureModal();
+        });
+
+        // Save signature button
+        document.getElementById('saveSignatureBtn').addEventListener('click', async () => {
+            if (signaturePad.isEmpty()) {
+                showMessageBox("Please provide your signature before confirming dispatch.");
+                return;
+            }
+
+            if (!currentRequestForDispatch) {
+                showMessageBox("No request selected for dispatch.");
+                return;
+            }
+
+            const signatureData = signaturePad.toDataURL('image/png'); // Get signature as PNG base64
+            
+            try {
+                // Update request with dispatch information and signature
+                const requestRef = doc(db, `artifacts/${appId}/public/data/uniformRequests`, currentRequestForDispatch.id);
+                
+                await updateDoc(requestRef, {
+                    dispatchStatus: 'dispatched',
+                    dispatchDate: serverTimestamp(),
+                    dispatchSignature: signatureData,
+                    dispatchedBy: currentUserId,
+                    employeeReceiptSignature: signatureData,
+                    employeeReceiptName: currentRequestForDispatch.names,
+                    employeeClockNo: currentRequestForDispatch.clockNo
+                });
+
+                showMessageBox(`Uniform items dispatched successfully for ${currentRequestForDispatch.names} (Clock No: ${currentRequestForDispatch.clockNo}). Signature recorded.`);
+                
+                // Clear signature and hide modal
+                signaturePad.clear();
+                hideSignatureModal();
+                
+            } catch (error) {
+                console.error("Error updating dispatch status:", error);
+                showMessageBox("Error recording dispatch. Please try again.");
+            }
+        });
+
+        // Handle window resize for signature pad
+        window.addEventListener('resize', () => {
+            if (signaturePad) {
+                // Save current signature
+                const data = signaturePad.toData();
+                
+                // Resize canvas
+                const canvas = document.getElementById('signaturePad');
+                const rect = canvas.getBoundingClientRect();
+                const dpr = window.devicePixelRatio || 1;
+                canvas.style.width = rect.width + 'px';
+                canvas.style.height = '200px';
+                canvas.width = rect.width * dpr;
+                canvas.height = 200 * dpr;
+                
+                // Rescale context
+                const context = canvas.getContext('2d');
+                context.scale(dpr, dpr);
+                
+                // Restore signature
+                signaturePad.fromData(data);
+            }
+        });
+
+        console.log("Uniform Request Application with Signature Capture loaded and initialized.");
     </script>
-</body> 
+</body>
 </html>
