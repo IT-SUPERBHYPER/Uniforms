@@ -73,7 +73,7 @@
             justify-content: center;
             align-items: flex-start;
             min-height: 100vh;
-            padding: 15px;
+            padding: 10px;
             position: relative;
             overflow-x: hidden;
             color: var(--text-primary);
@@ -94,6 +94,7 @@
             height: 100%;
             background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none"/><path d="M0,0 L100,100 M100,0 L0,100" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></svg>');
             z-index: -1;
+            pointer-events: none;
         }
 
         .container {
@@ -111,6 +112,15 @@
             overflow: hidden;
         }
 
+        /* MOBILE FIX: Reduce padding on small screens */
+        @media (max-width: 768px) {
+            body { padding: 5px; }
+            .container { 
+                padding: 15px; 
+                border-radius: 15px;
+            }
+        }
+
         .container::before {
             content: "";
             position: absolute;
@@ -126,6 +136,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* Responsive Headers */
         h1 {
             color: var(--text-primary);
             font-size: 2rem;
@@ -135,6 +146,11 @@
             text-align: center;
             position: relative;
             padding-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 1.5rem; margin-bottom: 15px; }
         }
 
         h1::after {
@@ -149,6 +165,10 @@
             border-radius: 2px;
         }
 
+        @media (max-width: 768px) {
+            h1::after { width: 50px; }
+        }
+
         h2 {
             color: var(--text-primary);
             font-size: 1.5rem;
@@ -158,18 +178,8 @@
             padding-bottom: 10px;
             text-align: center;
         }
-
-        h2::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            border-radius: 2px;
-        }
+        
+        @media (max-width: 768px) { h2 { font-size: 1.2rem; } }
 
         .form-group {
             margin-bottom: 15px;
@@ -194,14 +204,20 @@
         input[type="number"],
         select {
             width: 100%;
-            padding: 10px 12px;
+            padding: 12px; /* Slightly larger touch target */
             border: 2px solid var(--border-color);
             border-radius: 10px;
             box-sizing: border-box;
-            font-size: 14px;
+            font-size: 16px; /* Prevent iOS zoom */
             color: var(--text-primary);
             background-color: var(--card-bg);
             transition: all 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+             input[type="date"], input[type="text"], input[type="number"], select {
+                padding: 10px;
+             }
         }
 
         input[type="date"]:focus,
@@ -276,7 +292,7 @@
         }
 
         button {
-            padding: 10px 15px;
+            padding: 12px 15px; /* Larger touch area */
             border: none;
             border-radius: 10px;
             font-size: 14px;
@@ -405,7 +421,7 @@
             padding: 25px;
             border-radius: 15px;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            z-index: 1000;
+            z-index: 3000;
             display: none;
             text-align: center;
             font-size: 1rem;
@@ -413,6 +429,10 @@
             opacity: 0;
             max-width: 90%;
             width: 450px;
+        }
+
+        @media (max-width: 768px) {
+            .message-box { width: 95%; padding: 20px; }
         }
 
         .message-box.show {
@@ -442,6 +462,7 @@
             justify-content: center;
             gap: 15px;
             margin-top: 15px;
+            flex-wrap: wrap;
         }
 
         .collapsible-section {
@@ -498,6 +519,11 @@
             transition: max-height 0.5s ease-in, padding 0.3s ease-in;
         }
 
+        @media (max-width: 768px) {
+            .section-content.expanded { padding: 15px; }
+            .section-header { padding: 12px 15px; }
+        }
+
         .request-list-section,
         #statsSection,
         #stockManagementSection,
@@ -516,6 +542,10 @@
             flex-wrap: wrap;
             gap: 20px;
             justify-content: space-around;
+        }
+
+        @media (max-width: 768px) {
+            .request-list-categories-wrapper { flex-direction: column; gap: 15px; }
         }
 
         .request-list-category {
@@ -627,10 +657,10 @@
         }
 
         .request-item-actions button {
-            padding: 6px 12px;
-            font-size: 0.8rem;
+            padding: 8px 12px; /* Larger touch target */
+            font-size: 0.85rem;
             min-width: 0;
-            flex: none;
+            flex: 1;
         }
 
         .signature-box {
@@ -732,6 +762,14 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .user-id-display {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
         }
 
         .connection-status {
@@ -840,6 +878,10 @@
             background: var(--card-bg);
             border-radius: 12px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        @media (max-width: 768px) {
+            .stock-input-group { grid-template-columns: 1fr; }
         }
 
         .stock-buttons {
@@ -957,9 +999,16 @@
 
         .dashboard-stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adjusted min-width */
             gap: 15px;
             margin-bottom: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-stats { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        }
+        @media (max-width: 480px) {
+            .dashboard-stats { grid-template-columns: 1fr; }
         }
 
         .dashboard-stat {
@@ -1009,6 +1058,17 @@
             min-width: 150px;
             justify-content: center;
         }
+        
+        /* Mobile: Full width quick actions */
+        @media (max-width: 768px) {
+            .quick-action-btn {
+                min-width: 100%;
+                flex: 1 1 45%; /* 2 per row */
+            }
+        }
+        @media (max-width: 480px) {
+            .quick-action-btn { flex: 1 1 100%; } /* 1 per row */
+        }
 
         .quick-action-btn:hover {
             background: var(--hover-bg);
@@ -1042,8 +1102,13 @@
 
         .items-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Slightly smaller min-width */
             gap: 15px;
+        }
+
+        /* Mobile: Single column items */
+        @media (max-width: 768px) {
+            .items-grid { grid-template-columns: 1fr; }
         }
 
         .item-card {
@@ -1148,7 +1213,7 @@
             gap: 8px;
         }
 
-        /* Signature Modal Styles */
+        /* Signature Modal Styles - RESPONSIVE CRITICAL */
         #signatureModal {
             position: fixed;
             top: 50%;
@@ -1168,8 +1233,25 @@
             width: 700px;
             max-height: 90vh;
             overflow-y: auto;
-            /* Prevent scrolling of the modal itself interfering with canvas */
+            /* Prevent scrolling of modal itself interfering with canvas */
             touch-action: pan-y; 
+        }
+        
+        /* Mobile Modal Fixes */
+        @media (max-width: 768px) {
+            #signatureModal {
+                width: 95% !important;
+                height: auto;
+                max-height: 85vh;
+                padding: 15px;
+                top: 45%; /* Shift up slightly */
+            }
+            .signature-pad-container {
+                padding: 10px;
+            }
+            .signature-box {
+                height: 180px; /* Slightly shorter canvas on mobile */
+            }
         }
 
         #signatureModal.show {
@@ -1187,6 +1269,10 @@
             justify-content: center;
             gap: 10px;
         }
+        
+        @media (max-width: 768px) {
+            #signatureModal h3 { font-size: 1.1rem; }
+        }
 
         .modal-backdrop {
             position: fixed;
@@ -1203,84 +1289,6 @@
             display: block;
         }
 
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
-
-            h1 {
-                font-size: 1.5rem;
-            }
-
-            h2 {
-                font-size: 1.2rem;
-            }
-
-            .item-row {
-                grid-template-columns: 1fr;
-                gap: 10px;
-            }
-
-            .button-group {
-                flex-direction: column;
-                align-items: center;
-                gap: 10px;
-            }
-
-            button {
-                width: 100%;
-                max-width: 250px;
-            }
-
-            .stock-input-group {
-                grid-template-columns: 1fr;
-            }
-
-            .stock-buttons {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .request-list-categories-wrapper {
-                flex-direction: column;
-            }
-
-            .request-list-category {
-                min-width: 100%;
-            }
-
-            .dashboard-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .quick-actions {
-                width: 100%;
-            }
-
-            .quick-action-btn {
-                min-width: 100%;
-            }
-
-            .items-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .request-item-actions {
-                flex-direction: column;
-            }
-
-            .signature-actions {
-                flex-direction: column;
-            }
-
-            #signatureModal {
-                width: 95%;
-                padding: 15px;
-            }
-        }
-
         /* FIX: Specific Canvas Styles for Android/Touch */
         #signaturePad {
             /* Critical: Disables browser handling of gestures (scrolling/zooming) inside canvas */
@@ -1292,6 +1300,10 @@
             width: 100%;
             height: 200px;
             display: block;
+        }
+        
+        @media (max-width: 768px) {
+            #signaturePad { height: 180px; }
         }
     </style>
 <base target="_blank">
@@ -2316,7 +2328,7 @@
                 stockManagementContent.classList.add('expanded');
                 stockManagementToggle.classList.remove('collapsed');
                 
-                // Scroll to the section
+                // Scroll to section
                 stockManagementHeader.scrollIntoView({ behavior: 'smooth' });
             });
 
@@ -2330,7 +2342,7 @@
                 stockLevelsContent.classList.add('expanded');
                 stockLevelsToggle.classList.remove('collapsed');
                 
-                // Scroll to the section
+                // Scroll to section
                 stockLevelsHeader.scrollIntoView({ behavior: 'smooth' });
             });
 
@@ -2344,7 +2356,7 @@
                 requestsContent.classList.add('expanded');
                 requestsToggle.classList.remove('collapsed');
                 
-                // Scroll to the section
+                // Scroll to section
                 requestsHeader.scrollIntoView({ behavior: 'smooth' });
             });
 
@@ -2358,7 +2370,7 @@
                 dispatchContent.classList.add('expanded');
                 dispatchToggle.classList.remove('collapsed');
                 
-                // Scroll to the section
+                // Scroll to section
                 dispatchHeader.scrollIntoView({ behavior: 'smooth' });
             });
 
@@ -2372,7 +2384,7 @@
                 statsContent.classList.add('expanded');
                 statsToggle.classList.remove('collapsed');
                 
-                // Scroll to the section
+                // Scroll to section
                 statsHeader.scrollIntoView({ behavior: 'smooth' });
             });
         }
@@ -2436,7 +2448,7 @@
 
         // --- SIGNATURE PAD FIXES ---
         
-        // Prevent default touch behavior specifically for the canvas
+        // Prevent default touch behavior specifically for canvas
         function preventDefaultTouch(e) {
             if (e.target.id === 'signaturePad') {
                 e.preventDefault();
@@ -2497,7 +2509,7 @@
                 </div>
                 <div style="margin-top: 10px; padding: 10px; background: #fff3cd; border-radius: 5px; border: 1px solid #ffc107;">
                     <p style="margin: 0; font-weight: 600; color: #856404;">
-                        <i class="fas fa-exclamation-triangle"></i> Please sign to confirm receipt of the above uniform items.
+                        <i class="fas fa-exclamation-triangle"></i> Please sign to confirm receipt of above uniform items.
                     </p>
                 </div>
             `;
@@ -2510,11 +2522,11 @@
             signatureModal.style.display = 'block';
             
             // FIX: Delay initialization slightly to allow display:block to render so dimensions are correct
-            // We also wait for the CSS transition (0.3s defined in CSS)
+            // We also wait for the CSS transition
             setTimeout(() => {
                 signatureModal.classList.add('show');
                 
-                // Now that it's visible, initialize or resize the pad
+                // Now that it's visible, initialize or resize pad
                 if (!signaturePad) {
                     initializeSignaturePad();
                 } else {
@@ -2523,9 +2535,9 @@
                     // Resize canvas to current visual size
                     const canvas = document.getElementById('signaturePad');
                     resizeCanvas(canvas);
-                    // The resize clears the canvas context, so we might need to re-apply scaling if the library doesn't handle it.
+                    // The resize clears the canvas context, so we might need to re-apply scaling if library doesn't handle it.
                     // SignaturePad creates its own internal handling, but usually requires re-init on drastic resize
-                    // or handling the resize callback. Here we just ensure it fits.
+                    // or handling resize callback. Here we just ensure it fits.
                 }
             }, 50); // Short delay for browser paint
         }
@@ -2966,7 +2978,7 @@
             // Initialize Firebase
             initializeFirebaseWithRetry();
             
-            // FIX: Add global touch prevention specifically for the canvas
+            // FIX: Add global touch prevention specifically for canvas
             // This is crucial for Android Chrome which sometimes ignores CSS-only touch-action
             const canvas = document.getElementById('signaturePad');
             canvas.addEventListener('touchstart', preventDefaultTouch, { passive: false });
