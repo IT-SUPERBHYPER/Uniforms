@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Uniform Request Form</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -77,6 +77,8 @@
             position: relative;
             overflow-x: hidden;
             color: var(--text-primary);
+            /* Prevent pull-to-refresh on mobile interfering with app feel */
+            overscroll-behavior-y: none; 
         }
 
         [data-theme="dark"] body {
@@ -636,7 +638,8 @@
             border-radius: 10px;
             background: white;
             cursor: crosshair;
-            touch-action: none !important;
+            /* Critical for Android: Prevent default touch actions (scrolling) */
+            touch-action: none !important; 
             user-select: none !important;
             -webkit-user-select: none !important;
             -moz-user-select: none !important;
@@ -645,6 +648,7 @@
             height: 200px;
             display: block;
             position: relative;
+            overflow: hidden; /* Ensure signature doesn't bleed out */
         }
 
         .signature-pad-container {
@@ -1164,6 +1168,8 @@
             width: 700px;
             max-height: 90vh;
             overflow-y: auto;
+            /* Prevent scrolling of the modal itself interfering with canvas */
+            touch-action: pan-y; 
         }
 
         #signatureModal.show {
@@ -1275,23 +1281,17 @@
             }
         }
 
-        /* Additional fixes for signature pad */
+        /* FIX: Specific Canvas Styles for Android/Touch */
         #signaturePad {
-            touch-action: none !important;
+            /* Critical: Disables browser handling of gestures (scrolling/zooming) inside canvas */
+            touch-action: none !important; 
             user-select: none !important;
             -webkit-user-select: none !important;
             -moz-user-select: none !important;
             -ms-user-select: none !important;
-        }
-
-        .signature-pad-container canvas {
-            touch-action: none !important;
-            -webkit-touch-callout: none !important;
-            -webkit-user-select: none !important;
-            -khtml-user-select: none !important;
-            -moz-user-select: none !important;
-            -ms-user-select: none !important;
-            user-select: none !important;
+            width: 100%;
+            height: 200px;
+            display: block;
         }
     </style>
 <base target="_blank">
@@ -2174,7 +2174,9 @@
             <label style="display: block; margin-bottom: 10px; font-weight: 600; color: var(--text-primary);">
                 <i class="fas fa-pen"></i> Please sign below to acknowledge receipt of uniform items:
             </label>
+            <!-- The Canvas -->
             <canvas id="signaturePad" class="signature-box"></canvas>
+            
             <div class="signature-actions">
                 <button type="button" id="clearSignatureBtn" class="reset-button"><i class="fas fa-eraser"></i> Clear Signature</button>
                 <button type="button" id="cancelSignatureBtn" class="clear-button"><i class="fas fa-times"></i> Cancel</button>
@@ -2432,57 +2434,50 @@
             setTimeout(() => messageBox.classList.add('show'), 10);
         }
 
+        // --- SIGNATURE PAD FIXES ---
+        
+        // Prevent default touch behavior specifically for the canvas
+        function preventDefaultTouch(e) {
+            if (e.target.id === 'signaturePad') {
+                e.preventDefault();
+            }
+        }
+
+        // Function to resize canvas to match display size for high DPI
+        function resizeCanvas(canvas) {
+            const ratio =  Math.max(window.devicePixelRatio || 1, 1);
+            // Only set if dimensions are different to avoid clearing content unnecessarily
+            if (canvas.width !== canvas.offsetWidth * ratio || canvas.height !== canvas.offsetHeight * ratio) {
+                canvas.width = canvas.offsetWidth * ratio;
+                canvas.height = canvas.offsetHeight * ratio;
+                canvas.getContext("2d").scale(ratio, ratio);
+                return true; // Resized
+            }
+            return false; // Not resized
+        }
+
         // Function to initialize signature pad
         function initializeSignaturePad() {
             const canvas = document.getElementById('signaturePad');
             
-            // Wait for the modal to be fully visible
-            setTimeout(() => {
-                // Ensure canvas is properly sized
-                const rect = canvas.getBoundingClientRect();
-                const dpr = window.devicePixelRatio || 1;
-                
-                // Set display size (CSS)
-                canvas.style.width = '100%';
-                canvas.style.height = '200px';
-                
-                // Set actual size in memory
-                canvas.width = canvas.offsetWidth * dpr;
-                canvas.height = 200 * dpr;
-                
-                // Scale drawing context to match device pixel ratio
-                const context = canvas.getContext('2d');
-                context.scale(dpr, dpr);
-                
-                // Create signature pad with proper configuration
-                signaturePad = new SignaturePad(canvas, {
-                    backgroundColor: 'white',
-                    penColor: 'black',
-                    minWidth: 0.5,
-                    maxWidth: 2.5,
-                    velocityFilterWeight: 0.7,
-                    throttle: 16
-                });
+            // Ensure canvas has strict touch-action set via JS (fallback)
+            canvas.style.touchAction = 'none';
+            canvas.style.userSelect = 'none';
+            canvas.style.webkitUserSelect = 'none';
+            
+            resizeCanvas(canvas);
 
-                // Add comprehensive touch event handling
-                function preventDefaultTouch(e) {
-                    e.preventDefault();
-                }
+            // Create signature pad with proper configuration
+            signaturePad = new SignaturePad(canvas, {
+                backgroundColor: 'rgba(255, 255, 255, 0)',
+                penColor: 'black',
+                minWidth: 1, // Slightly wider for mobile touch
+                maxWidth: 3.5,
+                throttle: 16, // Limit updates for performance
+                minDistance: 2 // Require slight movement
+            });
 
-                // Prevent scrolling when touching canvas
-                canvas.addEventListener('touchstart', preventDefaultTouch, { passive: false });
-                canvas.addEventListener('touchmove', preventDefaultTouch, { passive: false });
-                canvas.addEventListener('touchend', preventDefaultTouch, { passive: false });
-                
-                // Ensure canvas has proper CSS for touch
-                canvas.style.touchAction = 'none';
-                canvas.style.userSelect = 'none';
-                canvas.style.webkitUserSelect = 'none';
-                canvas.style.mozUserSelect = 'none';
-                canvas.style.msUserSelect = 'none';
-                
-                console.log("Signature pad initialized successfully");
-            }, 100); // Small delay to ensure DOM is ready
+            console.log("Signature pad initialized successfully");
         }
 
         // Function to show signature modal
@@ -2514,31 +2509,25 @@
             const signatureModal = document.getElementById('signatureModal');
             signatureModal.style.display = 'block';
             
-            // Force a reflow to ensure proper rendering
-            signatureModal.offsetHeight;
-            
+            // FIX: Delay initialization slightly to allow display:block to render so dimensions are correct
+            // We also wait for the CSS transition (0.3s defined in CSS)
             setTimeout(() => {
                 signatureModal.classList.add('show');
                 
-                // Initialize or reinitialize signature pad
+                // Now that it's visible, initialize or resize the pad
                 if (!signaturePad) {
                     initializeSignaturePad();
                 } else {
                     // Clear any existing signature
                     signaturePad.clear();
-                    
-                    // Reinitialize canvas sizing
+                    // Resize canvas to current visual size
                     const canvas = document.getElementById('signaturePad');
-                    const rect = canvas.getBoundingClientRect();
-                    const dpr = window.devicePixelRatio || 1;
-                    
-                    canvas.width = rect.width * dpr;
-                    canvas.height = 200 * dpr;
-                    
-                    const context = canvas.getContext('2d');
-                    context.scale(dpr, dpr);
+                    resizeCanvas(canvas);
+                    // The resize clears the canvas context, so we might need to re-apply scaling if the library doesn't handle it.
+                    // SignaturePad creates its own internal handling, but usually requires re-init on drastic resize
+                    // or handling the resize callback. Here we just ensure it fits.
                 }
-            }, 10);
+            }, 50); // Short delay for browser paint
         }
 
         // Function to hide signature modal
@@ -2977,28 +2966,12 @@
             // Initialize Firebase
             initializeFirebaseWithRetry();
             
-            // Initialize signature pad with delay
-            setTimeout(() => {
-                initializeSignaturePad();
-            }, 1500);
-            
-            // Add fallback initialization
-            const signatureModal = document.getElementById('signatureModal');
-            const observer = new MutationObserver((mutations) => {
-                mutations.forEach((mutation) => {
-                    if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-                        if (signatureModal.classList.contains('show')) {
-                            setTimeout(() => {
-                                if (!signaturePad) {
-                                    initializeSignaturePad();
-                                }
-                            }, 100);
-                        }
-                    }
-                });
-            });
-
-            observer.observe(signatureModal, { attributes: true });
+            // FIX: Add global touch prevention specifically for the canvas
+            // This is crucial for Android Chrome which sometimes ignores CSS-only touch-action
+            const canvas = document.getElementById('signaturePad');
+            canvas.addEventListener('touchstart', preventDefaultTouch, { passive: false });
+            canvas.addEventListener('touchmove', preventDefaultTouch, { passive: false });
+            canvas.addEventListener('touchend', preventDefaultTouch, { passive: false });
         });
 
         // Theme toggle event listener
@@ -3107,8 +3080,6 @@
 
             return requestDiv;
         }
-
-        // [Rest of the previous JavaScript code remains the same until the renderRequests function]
 
         // Function to render requests into their respective containers and calculate stats
         function renderRequests(requests) {
@@ -3972,21 +3943,14 @@
                 // Save current signature
                 const data = signaturePad.toData();
                 
-                // Resize canvas
+                // Resize canvas using our helper
                 const canvas = document.getElementById('signaturePad');
-                const rect = canvas.getBoundingClientRect();
-                const dpr = window.devicePixelRatio || 1;
-                canvas.style.width = rect.width + 'px';
-                canvas.style.height = '200px';
-                canvas.width = rect.width * dpr;
-                canvas.height = 200 * dpr;
-                
-                // Rescale context
-                const context = canvas.getContext('2d');
-                context.scale(dpr, dpr);
+                const didResize = resizeCanvas(canvas);
                 
                 // Restore signature
-                signaturePad.fromData(data);
+                if (didResize) {
+                    signaturePad.fromData(data);
+                }
             }
         });
 
