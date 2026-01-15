@@ -412,6 +412,17 @@
             box-shadow: 0 10px 15px -3px rgba(76, 175, 80, 0.3);
         }
 
+        button.export-button {
+            background: linear-gradient(135deg, var(--warning), #ff9800);
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(255, 152, 0, 0.3);
+        }
+
+        button.export-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(255, 152, 0, 0.3);
+        }
+
         .message-box {
             position: fixed;
             top: 50%;
@@ -1305,6 +1316,97 @@
         @media (max-width: 768px) {
             #signaturePad { height: 180px; }
         }
+        
+        /* Export Options Section */
+        .export-options {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .export-option-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 150px;
+            justify-content: center;
+        }
+        
+        .export-option-btn:hover {
+            background: var(--hover-bg);
+            transform: translateY(-2px);
+        }
+        
+        .export-option-btn i {
+            color: var(--primary);
+        }
+        
+        /* Export Modal Styles */
+        .export-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            z-index: 2001;
+            display: none;
+            text-align: center;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            opacity: 0;
+            max-width: 95%;
+            width: 500px;
+        }
+        
+        .export-modal.show {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        .export-modal h3 {
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .export-filters {
+            background: var(--bg-secondary);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .export-filters .form-group {
+            margin-bottom: 10px;
+        }
+        
+        .export-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .export-buttons button {
+            min-width: 140px;
+        }
     </style>
 <base target="_blank">
 </head>
@@ -1365,6 +1467,9 @@
             </div>
             <div class="quick-action-btn" id="quickViewStatsBtn">
                 <i class="fas fa-chart-pie"></i> View Stats
+            </div>
+            <div class="quick-action-btn" id="quickExportBtn">
+                <i class="fas fa-file-export"></i> Export Data
             </div>
         </div>
 
@@ -1732,6 +1837,7 @@
                         <button type="reset" class="reset-button"><i class="fas fa-redo"></i> Reset Form</button>
                         <button type="button" id="clearAllDataBtn" class="clear-button"><i class="fas fa-trash-alt"></i> Clear All Data</button>
                         <button type="button" id="toggleStatsBtn" class="toggle-stats-button"><i class="fas fa-chart-bar"></i> Show/Hide Stats</button>
+                        <button type="button" id="exportDataBtn" class="export-button"><i class="fas fa-file-export"></i> Export Data</button>
                         <button type="submit" class="submit-button"><i class="fas fa-paper-plane"></i> Submit Request</button>
                     </div>
                 </form>
@@ -2201,11 +2307,70 @@
         </div>
     </div>
 
+    <!-- Export Data Modal -->
+    <div id="exportModal" class="export-modal">
+        <h3><i class="fas fa-file-export"></i> Export Data to CSV</h3>
+        
+        <div class="export-filters">
+            <div class="form-group">
+                <label for="exportTypeSelect"><i class="fas fa-filter"></i> Export Type:</label>
+                <select id="exportTypeSelect">
+                    <option value="requests">All Requests</option>
+                    <option value="charged">Charged Requests Only</option>
+                    <option value="uncharged">Uncharged Requests Only</option>
+                    <option value="pending">Pending Dispatch Only</option>
+                    <option value="dispatched">Dispatched Only</option>
+                    <option value="stock">Current Stock Levels</option>
+                    <option value="stockHistory">Stock Adjustment History</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="dateRangeSelect"><i class="fas fa-calendar"></i> Date Range:</label>
+                <select id="dateRangeSelect">
+                    <option value="all">All Time</option>
+                    <option value="today">Today</option>
+                    <option value="week">This Week</option>
+                    <option value="month">This Month</option>
+                    <option value="custom">Custom Range</option>
+                </select>
+            </div>
+            
+            <div id="customDateRange" style="display: none;">
+                <div class="form-group">
+                    <label for="startDate">Start Date:</label>
+                    <input type="date" id="startDate">
+                </div>
+                <div class="form-group">
+                    <label for="endDate">End Date:</label>
+                    <input type="date" id="endDate">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="includeDetails"><i class="fas fa-list"></i> Include Item Details:</label>
+                <select id="includeDetails">
+                    <option value="yes">Yes (Detailed Items)</option>
+                    <option value="no">No (Summary Only)</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="export-buttons">
+            <button type="button" id="cancelExportBtn" class="reset-button"><i class="fas fa-times"></i> Cancel</button>
+            <button type="button" id="generateExportBtn" class="export-button"><i class="fas fa-download"></i> Generate CSV</button>
+        </div>
+        
+        <div style="margin-top: 15px; color: var(--text-secondary); font-size: 0.85rem;">
+            <p><i class="fas fa-info-circle"></i> <strong>Note:</strong> CSV files can be opened in Excel, Google Sheets, or any spreadsheet software.</p>
+        </div>
+    </div>
+
     <script type="module">
         // Firebase imports
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-        import { getFirestore, collection, addDoc, query, onSnapshot, getDocs, deleteDoc, doc, writeBatch, serverTimestamp, runTransaction, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, query, onSnapshot, getDocs, deleteDoc, doc, writeBatch, serverTimestamp, runTransaction, setDoc, updateDoc, where, orderBy } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
         // Global variables for Canvas environment
         let appId = 'default-app-id';
@@ -2228,6 +2393,7 @@
         const maxRetries = 3;
         let signaturePad = null;
         let currentRequestForDispatch = null;
+        let allRequests = []; // Store all requests for export
 
         // Define possible sizes and colors
         const sizes = ["XS", "S", "M", "L", "XL", "XXL"];
@@ -2387,6 +2553,10 @@
                 // Scroll to section
                 statsHeader.scrollIntoView({ behavior: 'smooth' });
             });
+
+            document.getElementById('quickExportBtn').addEventListener('click', () => {
+                showExportModal();
+            });
         }
 
         // Function to update connection status
@@ -2535,9 +2705,6 @@
                     // Resize canvas to current visual size
                     const canvas = document.getElementById('signaturePad');
                     resizeCanvas(canvas);
-                    // The resize clears the canvas context, so we might need to re-apply scaling if library doesn't handle it.
-                    // SignaturePad creates its own internal handling, but usually requires re-init on drastic resize
-                    // or handling resize callback. Here we just ensure it fits.
                 }
             }, 50); // Short delay for browser paint
         }
@@ -2559,6 +2726,398 @@
                     signaturePad.clear();
                 }
             }, 300);
+        }
+
+        // Function to show export modal
+        function showExportModal() {
+            // Set today's date as default for date inputs
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const dd = String(today.getDate()).padStart(2, '0');
+            document.getElementById('startDate').value = `${yyyy}-${mm}-${dd}`;
+            document.getElementById('endDate').value = `${yyyy}-${mm}-${dd}`;
+            
+            // Show backdrop
+            document.getElementById('modalBackdrop').classList.add('show');
+            
+            // Show modal
+            const exportModal = document.getElementById('exportModal');
+            exportModal.style.display = 'block';
+            
+            setTimeout(() => {
+                exportModal.classList.add('show');
+            }, 50);
+        }
+
+        // Function to hide export modal
+        function hideExportModal() {
+            const exportModal = document.getElementById('exportModal');
+            exportModal.classList.remove('show');
+            
+            // Hide backdrop
+            document.getElementById('modalBackdrop').classList.remove('show');
+            
+            setTimeout(() => {
+                exportModal.style.display = 'none';
+            }, 300);
+        }
+
+        // Function to convert array to CSV string
+        function arrayToCSV(data) {
+            const csvRows = [];
+            
+            // Get headers
+            const headers = Object.keys(data[0]);
+            csvRows.push(headers.join(','));
+            
+            // Loop over the rows
+            for (const row of data) {
+                const values = headers.map(header => {
+                    let escaped = ('' + row[header]).replace(/"/g, '""');
+                    if (escaped.includes(',') || escaped.includes('\n') || escaped.includes('"')) {
+                        escaped = `"${escaped}"`;
+                    }
+                    return escaped;
+                });
+                csvRows.push(values.join(','));
+            }
+            
+            return csvRows.join('\n');
+        }
+
+        // Function to download CSV file
+        function downloadCSV(csvContent, fileName) {
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            
+            if (navigator.msSaveBlob) { // IE 10+
+                navigator.msSaveBlob(blob, fileName);
+            } else {
+                link.href = URL.createObjectURL(blob);
+                link.setAttribute('download', fileName);
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        }
+
+        // Function to filter requests by date range
+        function filterRequestsByDate(requests, dateRange) {
+            const now = new Date();
+            const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            const startOfWeek = new Date(today);
+            startOfWeek.setDate(today.getDate() - today.getDay()); // Sunday
+            const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+            
+            switch (dateRange) {
+                case 'today':
+                    return requests.filter(request => {
+                        const requestDate = new Date(request.date);
+                        return requestDate >= today;
+                    });
+                case 'week':
+                    return requests.filter(request => {
+                        const requestDate = new Date(request.date);
+                        return requestDate >= startOfWeek;
+                    });
+                case 'month':
+                    return requests.filter(request => {
+                        const requestDate = new Date(request.date);
+                        return requestDate >= startOfMonth;
+                    });
+                case 'custom':
+                    const startDate = new Date(document.getElementById('startDate').value);
+                    const endDate = new Date(document.getElementById('endDate').value);
+                    endDate.setHours(23, 59, 59, 999); // End of day
+                    
+                    return requests.filter(request => {
+                        const requestDate = new Date(request.date);
+                        return requestDate >= startDate && requestDate <= endDate;
+                    });
+                default: // 'all'
+                    return requests;
+            }
+        }
+
+        // Function to generate requests CSV
+        function generateRequestsCSV(requests, exportType, includeDetails) {
+            const filteredRequests = requests.filter(request => {
+                switch (exportType) {
+                    case 'charged': return request.category === 'Charged';
+                    case 'uncharged': return request.category === 'Uncharged';
+                    case 'pending': return request.dispatchStatus !== 'dispatched';
+                    case 'dispatched': return request.dispatchStatus === 'dispatched';
+                    default: return true; // 'requests'
+                }
+            });
+
+            if (filteredRequests.length === 0) {
+                showMessageBox(`No data found for the selected filters.`);
+                return;
+            }
+
+            const csvData = [];
+            
+            if (includeDetails === 'yes') {
+                // Detailed export with item breakdown
+                csvData.push({
+                    'Request ID': 'ID',
+                    'Date': 'Date',
+                    'Clock No': 'Clock No',
+                    'Employee Name': 'Employee Name',
+                    'Category': 'Category',
+                    'Dispatch Status': 'Dispatch Status',
+                    'Total Items': 'Total Items',
+                    'Total Cost': 'Total Cost',
+                    'Supervisor Sign': 'Supervisor Sign',
+                    'Employee Sign': 'Employee Sign',
+                    'Submitted Date': 'Submitted Date',
+                    'Item Type': 'Item Type',
+                    'Item Name': 'Item Name',
+                    'Quantity': 'Quantity',
+                    'Size/Color/Type': 'Size/Color/Type',
+                    'Item Cost': 'Item Cost',
+                    'Item Total': 'Item Total'
+                });
+
+                filteredRequests.forEach(request => {
+                    const requestDate = request.timestamp ? new Date(request.timestamp.toDate()).toLocaleString() : 'N/A';
+                    
+                    // Add a row for each item in the request
+                    for (const itemType in request.items) {
+                        const item = request.items[itemType];
+                        if (item.quantity > 0) {
+                            const itemPriceAtRequest = item.itemPrice !== undefined ? item.itemPrice : (currentStock[itemType]?.costPrice !== undefined ? currentStock[itemType].costPrice : 0);
+                            const itemTotal = item.quantity * itemPriceAtRequest;
+                            const itemName = itemMap[itemType] ? itemMap[itemType].name : itemType;
+                            const sizeColorType = item.size || item.color || item.type || 'N/A';
+                            
+                            csvData.push({
+                                'Request ID': request.id || 'N/A',
+                                'Date': request.date || 'N/A',
+                                'Clock No': request.clockNo || 'N/A',
+                                'Employee Name': request.names || 'N/A',
+                                'Category': request.category || 'N/A',
+                                'Dispatch Status': request.dispatchStatus || 'pending',
+                                'Total Items': request.totalItems || 0,
+                                'Total Cost': formatCurrency(request.totalCost || 0),
+                                'Supervisor Sign': request.supervisorSign || 'N/A',
+                                'Employee Sign': request.employeeSign || 'N/A',
+                                'Submitted Date': requestDate,
+                                'Item Type': itemType,
+                                'Item Name': itemName,
+                                'Quantity': item.quantity,
+                                'Size/Color/Type': sizeColorType,
+                                'Item Cost': formatCurrency(itemPriceAtRequest),
+                                'Item Total': formatCurrency(itemTotal)
+                            });
+                        }
+                    }
+                    
+                    // If no items, still add a summary row
+                    if (Object.keys(request.items).length === 0) {
+                        csvData.push({
+                            'Request ID': request.id || 'N/A',
+                            'Date': request.date || 'N/A',
+                            'Clock No': request.clockNo || 'N/A',
+                            'Employee Name': request.names || 'N/A',
+                            'Category': request.category || 'N/A',
+                            'Dispatch Status': request.dispatchStatus || 'pending',
+                            'Total Items': request.totalItems || 0,
+                            'Total Cost': formatCurrency(request.totalCost || 0),
+                            'Supervisor Sign': request.supervisorSign || 'N/A',
+                            'Employee Sign': request.employeeSign || 'N/A',
+                            'Submitted Date': requestDate,
+                            'Item Type': 'N/A',
+                            'Item Name': 'N/A',
+                            'Quantity': 0,
+                            'Size/Color/Type': 'N/A',
+                            'Item Cost': 'R 0.00',
+                            'Item Total': 'R 0.00'
+                        });
+                    }
+                });
+            } else {
+                // Summary export
+                csvData.push({
+                    'Request ID': 'ID',
+                    'Date': 'Date',
+                    'Clock No': 'Clock No',
+                    'Employee Name': 'Employee Name',
+                    'Category': 'Category',
+                    'Dispatch Status': 'Dispatch Status',
+                    'Total Items': 'Total Items',
+                    'Total Cost': 'Total Cost',
+                    'Supervisor Sign': 'Supervisor Sign',
+                    'Employee Sign': 'Employee Sign',
+                    'Submitted Date': 'Submitted Date',
+                    'T-shirt': 'T-shirt',
+                    'Golfer': 'Golfer',
+                    'Jacket Royal Blue': 'Jacket Royal Blue',
+                    'Jacket Navy Blue': 'Jacket Navy Blue',
+                    'Beanie': 'Beanie',
+                    'Skirt': 'Skirt',
+                    'Abaya': 'Abaya',
+                    'Caps': 'Caps',
+                    'Shoes': 'Shoes',
+                    'Gloves': 'Gloves',
+                    'Dust Coats': 'Dust Coats',
+                    'Reflector': 'Reflector'
+                });
+
+                filteredRequests.forEach(request => {
+                    const requestDate = request.timestamp ? new Date(request.timestamp.toDate()).toLocaleString() : 'N/A';
+                    
+                    // Create item summary string for each item type
+                    const itemSummary = {};
+                    for (const itemType in itemMap) {
+                        const item = request.items[itemType] || {};
+                        if (item.quantity > 0) {
+                            const sizeColorType = item.size || item.color || item.type || 'N/A';
+                            itemSummary[itemType] = `${item.quantity} (${sizeColorType})`;
+                        } else {
+                            itemSummary[itemType] = '0';
+                        }
+                    }
+                    
+                    csvData.push({
+                        'Request ID': request.id || 'N/A',
+                        'Date': request.date || 'N/A',
+                        'Clock No': request.clockNo || 'N/A',
+                        'Employee Name': request.names || 'N/A',
+                        'Category': request.category || 'N/A',
+                        'Dispatch Status': request.dispatchStatus || 'pending',
+                        'Total Items': request.totalItems || 0,
+                        'Total Cost': formatCurrency(request.totalCost || 0),
+                        'Supervisor Sign': request.supervisorSign || 'N/A',
+                        'Employee Sign': request.employeeSign || 'N/A',
+                        'Submitted Date': requestDate,
+                        'T-shirt': itemSummary.tShirt || '0',
+                        'Golfer': itemSummary.golfer || '0',
+                        'Jacket Royal Blue': itemSummary.jrb || '0',
+                        'Jacket Navy Blue': itemSummary.jnb || '0',
+                        'Beanie': itemSummary.beanie || '0',
+                        'Skirt': itemSummary.skirt || '0',
+                        'Abaya': itemSummary.abaya || '0',
+                        'Caps': itemSummary.caps || '0',
+                        'Shoes': itemSummary.shoes || '0',
+                        'Gloves': itemSummary.gloves || '0',
+                        'Dust Coats': itemSummary.dustCoats || '0',
+                        'Reflector': itemSummary.reflector || '0'
+                    });
+                });
+            }
+
+            const csvContent = arrayToCSV(csvData);
+            const fileName = `uniform_requests_${exportType}_${new Date().toISOString().slice(0,10)}.csv`;
+            downloadCSV(csvContent, fileName);
+            
+            showMessageBox(`CSV file generated successfully! ${filteredRequests.length} records exported.`);
+        }
+
+        // Function to generate stock CSV
+        function generateStockCSV() {
+            const csvData = [];
+            
+            // Header row
+            csvData.push({
+                'Item Type': 'Item Type',
+                'Size/Color': 'Size/Color',
+                'Quantity': 'Quantity',
+                'Cost Price': 'Cost Price',
+                'Total Value': 'Total Value',
+                'Last Updated': 'Last Updated'
+            });
+
+            // Add stock data
+            for (const itemType in currentStock) {
+                const itemData = currentStock[itemType];
+                if (itemData && typeof itemData === 'object') {
+                    for (const key in itemData) {
+                        if (key !== 'costPrice' && key !== 'lastAdjustedBy' && key !== 'lastAdjustedAt') {
+                            const quantity = itemData[key] || 0;
+                            const costPrice = itemData.costPrice || 0;
+                            const totalValue = quantity * costPrice;
+                            
+                            csvData.push({
+                                'Item Type': itemMap[itemType] ? itemMap[itemType].name : itemType,
+                                'Size/Color': key,
+                                'Quantity': quantity,
+                                'Cost Price': formatCurrency(costPrice),
+                                'Total Value': formatCurrency(totalValue),
+                                'Last Updated': itemData.lastAdjustedAt ? new Date(itemData.lastAdjustedAt.toDate()).toLocaleString() : 'N/A'
+                            });
+                        }
+                    }
+                }
+            }
+
+            const csvContent = arrayToCSV(csvData);
+            const fileName = `uniform_stock_${new Date().toISOString().slice(0,10)}.csv`;
+            downloadCSV(csvContent, fileName);
+            
+            showMessageBox(`Stock CSV file generated successfully!`);
+        }
+
+        // Function to generate stock history CSV
+        async function generateStockHistoryCSV() {
+            if (!isAuthReady || !currentUserId) {
+                showMessageBox("Application is not ready. Please wait for Firebase to initialize.");
+                return;
+            }
+
+            try {
+                const stockHistoryCollectionRef = collection(db, `artifacts/${appId}/public/data/stockAdjustments`);
+                const q = query(stockHistoryCollectionRef, orderBy('timestamp', 'desc'));
+                const querySnapshot = await getDocs(q);
+                
+                const csvData = [];
+                
+                // Header row
+                csvData.push({
+                    'Timestamp': 'Timestamp',
+                    'Item': 'Item',
+                    'Size/Color': 'Size/Color',
+                    'Quantity Change': 'Quantity Change',
+                    'New Quantity': 'New Quantity',
+                    'Adjustment Type': 'Adjustment Type',
+                    'Cost Price': 'Cost Price',
+                    'Adjusted By': 'Adjusted By',
+                    'User ID': 'User ID'
+                });
+
+                querySnapshot.forEach((doc) => {
+                    const historyItem = doc.data();
+                    
+                    csvData.push({
+                        'Timestamp': historyItem.timestamp ? new Date(historyItem.timestamp.toDate()).toLocaleString() : 'N/A',
+                        'Item': historyItem.item || 'N/A',
+                        'Size/Color': historyItem.sizeOrColor || 'N/A',
+                        'Quantity Change': historyItem.quantityChange || 0,
+                        'New Quantity': historyItem.newQuantity || 0,
+                        'Adjustment Type': historyItem.adjustmentType || 'N/A',
+                        'Cost Price': historyItem.costPrice ? formatCurrency(historyItem.costPrice) : 'N/A',
+                        'Adjusted By': historyItem.adjustedBy || 'N/A',
+                        'User ID': historyItem.userId || 'N/A'
+                    });
+                });
+
+                if (csvData.length === 1) { // Only header row
+                    showMessageBox("No stock adjustment history found.");
+                    return;
+                }
+
+                const csvContent = arrayToCSV(csvData);
+                const fileName = `stock_history_${new Date().toISOString().slice(0,10)}.csv`;
+                downloadCSV(csvContent, fileName);
+                
+                showMessageBox(`Stock history CSV file generated successfully! ${csvData.length - 1} records exported.`);
+            } catch (error) {
+                console.error("Error generating stock history CSV:", error);
+                showMessageBox("Error generating stock history CSV. Please try again.");
+            }
         }
 
         // Firebase configuration
@@ -2683,6 +3242,7 @@
         const noUnchargedRequestsMessage = document.getElementById('noUnchargedRequestsMessage');
         const clearAllDataBtn = document.getElementById('clearAllDataBtn');
         const toggleStatsBtn = document.getElementById('toggleStatsBtn');
+        const exportDataBtn = document.getElementById('exportDataBtn');
         const detailedStockDisplay = document.getElementById('detailedStockDisplay');
         const stockHistoryContainer = document.getElementById('stockHistoryContainer');
         const noStockHistoryMessage = document.getElementById('noStockHistoryMessage');
@@ -2703,6 +3263,16 @@
 
         const clearStockAdjustedBy = document.getElementById('clearStockAdjustedBy');
         const clearAllStockBtn = document.getElementById('clearAllStockBtn');
+
+        // Export Modal Elements
+        const exportTypeSelect = document.getElementById('exportTypeSelect');
+        const dateRangeSelect = document.getElementById('dateRangeSelect');
+        const customDateRange = document.getElementById('customDateRange');
+        const startDate = document.getElementById('startDate');
+        const endDate = document.getElementById('endDate');
+        const includeDetails = document.getElementById('includeDetails');
+        const cancelExportBtn = document.getElementById('cancelExportBtn');
+        const generateExportBtn = document.getElementById('generateExportBtn');
 
         // Theme toggle
         const themeToggle = document.getElementById('themeToggle');
@@ -2984,6 +3554,38 @@
             canvas.addEventListener('touchstart', preventDefaultTouch, { passive: false });
             canvas.addEventListener('touchmove', preventDefaultTouch, { passive: false });
             canvas.addEventListener('touchend', preventDefaultTouch, { passive: false });
+            
+            // Export modal event listeners
+            dateRangeSelect.addEventListener('change', function() {
+                if (this.value === 'custom') {
+                    customDateRange.style.display = 'block';
+                } else {
+                    customDateRange.style.display = 'none';
+                }
+            });
+            
+            cancelExportBtn.addEventListener('click', hideExportModal);
+            
+            generateExportBtn.addEventListener('click', async function() {
+                const exportType = exportTypeSelect.value;
+                const dateRange = dateRangeSelect.value;
+                const includeDetailsVal = includeDetails.value;
+                
+                hideExportModal();
+                
+                if (exportType === 'stock') {
+                    generateStockCSV();
+                } else if (exportType === 'stockHistory') {
+                    await generateStockHistoryCSV();
+                } else {
+                    // Filter requests by date range
+                    const filteredRequests = filterRequestsByDate(allRequests, dateRange);
+                    generateRequestsCSV(filteredRequests, exportType, includeDetailsVal);
+                }
+            });
+            
+            // Export button event listener
+            exportDataBtn.addEventListener('click', showExportModal);
         });
 
         // Theme toggle event listener
@@ -3095,6 +3697,8 @@
 
         // Function to render requests into their respective containers and calculate stats
         function renderRequests(requests) {
+            allRequests = requests; // Store for export
+            
             pendingDispatchContainer.innerHTML = '';
             dispatchedContainer.innerHTML = '';
             chargedRequestsContainer.innerHTML = '';
@@ -3244,6 +3848,12 @@
             document.getElementById('jrbUnchargedStat').innerText = itemRequestStats.jrb.uncharged;
             document.getElementById('jrbChargedCostStat').innerText = formatCurrency(itemRequestStats.jrb.chargedCost);
             document.getElementById('jrbUnchargedCostStat').innerText = formatCurrency(itemRequestStats.jrb.unchargedCost);
+
+            document.getElementById('jnbTotalStat').innerText = itemRequestStats.jnb.total;
+            document.getElementById('jnbChargedStat').innerText = itemRequestStats.jnb.charged;
+            document.getElementById('jnbUnchargedStat').innerText = itemRequestStats.jnb.uncharged;
+            document.getElementById('jnbChargedCostStat').innerText = formatCurrency(itemRequestStats.jnb.chargedCost);
+            document.getElementById('jnbUnchargedCostStat').innerText = formatCurrency(itemRequestStats.jnb.unchargedCost);
 
             document.getElementById('beanieTotalStat').innerText = itemRequestStats.beanie.total;
             document.getElementById('beanieChargedStat').innerText = itemRequestStats.beanie.charged;
@@ -3834,6 +4444,7 @@
                                         relevantOptions = sizes;
                                     }
                                     relevantOptions.forEach(option => {
+                                        const oldQty = currentStockInDb[itemType]?.[option] || 0;
                                         currentStockInDb[itemType][option] = 0;
                                     });
                                     currentStockInDb[itemType].costPrice = 0;
@@ -3966,7 +4577,7 @@
             }
         });
 
-        console.log("Uniform Request Application with Signature Capture loaded and initialized.");
+        console.log("Uniform Request Application with Signature Capture and CSV Export loaded and initialized.");
     </script>
 </body>
 </html>
