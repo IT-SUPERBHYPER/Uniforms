@@ -77,8 +77,7 @@
             position: relative;
             overflow-x: hidden;
             color: var(--text-primary);
-            /* Prevent pull-to-refresh on mobile interfering with app feel */
-            overscroll-behavior-y: none; 
+            overscroll-behavior-y: none;
         }
 
         [data-theme="dark"] body {
@@ -112,7 +111,6 @@
             overflow: hidden;
         }
 
-        /* MOBILE FIX: Reduce padding on small screens */
         @media (max-width: 768px) {
             body { padding: 5px; }
             .container { 
@@ -136,7 +134,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Responsive Headers */
         h1 {
             color: var(--text-primary);
             font-size: 2rem;
@@ -204,11 +201,11 @@
         input[type="number"],
         select {
             width: 100%;
-            padding: 12px; /* Slightly larger touch target */
+            padding: 12px;
             border: 2px solid var(--border-color);
             border-radius: 10px;
             box-sizing: border-box;
-            font-size: 16px; /* Prevent iOS zoom */
+            font-size: 16px;
             color: var(--text-primary);
             background-color: var(--card-bg);
             transition: all 0.3s ease;
@@ -292,7 +289,7 @@
         }
 
         button {
-            padding: 12px 15px; /* Larger touch area */
+            padding: 12px 15px;
             border: none;
             border-radius: 10px;
             font-size: 14px;
@@ -421,6 +418,17 @@
         button.export-button:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 15px -3px rgba(255, 152, 0, 0.3);
+        }
+
+        button.edit-button {
+            background: linear-gradient(135deg, var(--info), #1976d2);
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(33, 150, 243, 0.3);
+        }
+
+        button.edit-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(33, 150, 243, 0.3);
         }
 
         .message-box {
@@ -668,7 +676,7 @@
         }
 
         .request-item-actions button {
-            padding: 8px 12px; /* Larger touch target */
+            padding: 8px 12px;
             font-size: 0.85rem;
             min-width: 0;
             flex: 1;
@@ -679,8 +687,7 @@
             border-radius: 10px;
             background: white;
             cursor: crosshair;
-            /* Critical for Android: Prevent default touch actions (scrolling) */
-            touch-action: none !important; 
+            touch-action: none !important;
             user-select: none !important;
             -webkit-user-select: none !important;
             -moz-user-select: none !important;
@@ -689,7 +696,7 @@
             height: 200px;
             display: block;
             position: relative;
-            overflow: hidden; /* Ensure signature doesn't bleed out */
+            overflow: hidden;
         }
 
         .signature-pad-container {
@@ -726,7 +733,6 @@
             display: block;
         }
 
-        /* New styles for signature display in dispatched items */
         .signature-display-small {
             border: 1px solid var(--border-color);
             border-radius: 5px;
@@ -819,7 +825,6 @@
             background: var(--hover-bg);
         }
 
-        /* Stats Section Specific */
         #statsSection .stat-card {
             background: var(--card-bg);
             padding: 15px;
@@ -879,7 +884,6 @@
             color: var(--text-primary);
         }
 
-        /* Stock Management Section */
         .stock-input-group {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -906,7 +910,6 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
 
-        /* Detailed Stock Display Section */
         #currentStockLevelsSection .stock-item-card {
             background: var(--card-bg);
             padding: 15px;
@@ -966,7 +969,6 @@
             font-weight: 600;
         }
 
-        /* Stock History Section */
         .stock-history-item {
             background: var(--card-bg);
             border-radius: 10px;
@@ -998,7 +1000,6 @@
             font-style: italic;
         }
 
-        /* New UI Improvements */
         .dashboard-header {
             display: flex;
             justify-content: space-between;
@@ -1010,7 +1011,7 @@
 
         .dashboard-stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adjusted min-width */
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 15px;
             margin-bottom: 20px;
         }
@@ -1070,15 +1071,14 @@
             justify-content: center;
         }
         
-        /* Mobile: Full width quick actions */
         @media (max-width: 768px) {
             .quick-action-btn {
                 min-width: 100%;
-                flex: 1 1 45%; /* 2 per row */
+                flex: 1 1 45%;
             }
         }
         @media (max-width: 480px) {
-            .quick-action-btn { flex: 1 1 100%; } /* 1 per row */
+            .quick-action-btn { flex: 1 1 100%; }
         }
 
         .quick-action-btn:hover {
@@ -1113,11 +1113,10 @@
 
         .items-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Slightly smaller min-width */
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 15px;
         }
 
-        /* Mobile: Single column items */
         @media (max-width: 768px) {
             .items-grid { grid-template-columns: 1fr; }
         }
@@ -1174,7 +1173,6 @@
             font-size: 0.9rem;
         }
 
-        /* Status badges */
         .status-badge {
             display: inline-block;
             padding: 4px 10px;
@@ -1208,7 +1206,6 @@
             border: 1px solid #ffeaa7;
         }
 
-        /* Dispatch status section */
         .dispatch-status-info {
             background: var(--card-bg);
             padding: 15px;
@@ -1224,7 +1221,6 @@
             gap: 8px;
         }
 
-        /* Signature Modal Styles - RESPONSIVE CRITICAL */
         #signatureModal {
             position: fixed;
             top: 50%;
@@ -1244,24 +1240,22 @@
             width: 700px;
             max-height: 90vh;
             overflow-y: auto;
-            /* Prevent scrolling of modal itself interfering with canvas */
-            touch-action: pan-y; 
+            touch-action: pan-y;
         }
         
-        /* Mobile Modal Fixes */
         @media (max-width: 768px) {
             #signatureModal {
                 width: 95% !important;
                 height: auto;
                 max-height: 85vh;
                 padding: 15px;
-                top: 45%; /* Shift up slightly */
+                top: 45%;
             }
             .signature-pad-container {
                 padding: 10px;
             }
             .signature-box {
-                height: 180px; /* Slightly shorter canvas on mobile */
+                height: 180px;
             }
         }
 
@@ -1300,10 +1294,8 @@
             display: block;
         }
 
-        /* FIX: Specific Canvas Styles for Android/Touch */
         #signaturePad {
-            /* Critical: Disables browser handling of gestures (scrolling/zooming) inside canvas */
-            touch-action: none !important; 
+            touch-action: none !important;
             user-select: none !important;
             -webkit-user-select: none !important;
             -moz-user-select: none !important;
@@ -1317,7 +1309,6 @@
             #signaturePad { height: 180px; }
         }
         
-        /* Export Options Section */
         .export-options {
             display: flex;
             gap: 10px;
@@ -1349,7 +1340,6 @@
             color: var(--primary);
         }
         
-        /* Export Modal Styles */
         .export-modal {
             position: fixed;
             top: 50%;
@@ -1405,6 +1395,78 @@
         }
         
         .export-buttons button {
+            min-width: 140px;
+        }
+
+        .edit-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            z-index: 2002;
+            display: none;
+            text-align: center;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            opacity: 0;
+            max-width: 95%;
+            width: 700px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .edit-modal.show {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .edit-modal h3 {
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .edit-item-row {
+            display: grid;
+            grid-template-columns: 1fr 80px 80px;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+        }
+
+        .edit-item-row label {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .edit-item-row input,
+        .edit-item-row select {
+            padding: 8px;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .edit-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .edit-buttons button {
             min-width: 140px;
         }
     </style>
@@ -2366,6 +2428,239 @@
         </div>
     </div>
 
+    <!-- Edit Request Modal -->
+    <div id="editRequestModal" class="edit-modal">
+        <h3><i class="fas fa-edit"></i> Edit Uniform Request</h3>
+        
+        <div class="export-filters" id="editRequestForm">
+            <!-- Employee Details -->
+            <div class="form-group">
+                <label for="editDate"><i class="fas fa-calendar-alt"></i> Date:</label>
+                <input type="date" id="editDate" name="editDate" required>
+            </div>
+            <div class="form-group">
+                <label for="editClockNo"><i class="fas fa-clock"></i> Clock No.:</label>
+                <input type="text" id="editClockNo" name="editClockNo" required>
+            </div>
+            <div class="form-group">
+                <label for="editNames"><i class="fas fa-user"></i> Names:</label>
+                <input type="text" id="editNames" name="editNames" required>
+            </div>
+            <div class="form-group">
+                <label for="editCategory"><i class="fas fa-tags"></i> Category:</label>
+                <select id="editCategory" name="editCategory" required>
+                    <option value="">Select Category</option>
+                    <option value="Charged">Charged</option>
+                    <option value="Uncharged">Uncharged</option>
+                </select>
+            </div>
+            
+            <!-- Uniform Items -->
+            <div style="margin: 15px 0; border-top: 1px solid var(--border-color); padding-top: 15px;">
+                <h4 style="color: var(--text-primary); margin-bottom: 10px;"><i class="fas fa-box"></i> Uniform Items</h4>
+                
+                <!-- T-shirt -->
+                <div class="edit-item-row">
+                    <label for="editTShirtQty">T-shirt:</label>
+                    <input type="number" id="editTShirtQty" min="0" value="0">
+                    <select id="editTShirtSize">
+                        <option value="">Size</option>
+                        <option value="XS">XS</option>
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                        <option value="XXL">XXL</option>
+                    </select>
+                </div>
+                
+                <!-- Golfer -->
+                <div class="edit-item-row">
+                    <label for="editGolferQty">Golfer:</label>
+                    <input type="number" id="editGolferQty" min="0" value="0">
+                    <select id="editGolferSize">
+                        <option value="">Size</option>
+                        <option value="XS">XS</option>
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                        <option value="XXL">XXL</option>
+                    </select>
+                </div>
+                
+                <!-- Jacket Royal Blue -->
+                <div class="edit-item-row">
+                    <label for="editJrbQty">Jacket Royal Blue:</label>
+                    <input type="number" id="editJrbQty" min="0" value="0">
+                    <select id="editJrbSize">
+                        <option value="">Size</option>
+                        <option value="XS">XS</option>
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                        <option value="XXL">XXL</option>
+                    </select>
+                </div>
+                
+                <!-- Jacket Navy Blue -->
+                <div class="edit-item-row">
+                    <label for="editJnbQty">Jacket Navy Blue:</label>
+                    <input type="number" id="editJnbQty" min="0" value="0">
+                    <select id="editJnbSize">
+                        <option value="">Size</option>
+                        <option value="XS">XS</option>
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                        <option value="XXL">XXL</option>
+                    </select>
+                </div>
+                
+                <!-- Beanie -->
+                <div class="edit-item-row">
+                    <label for="editBeanieQty">Beanie:</label>
+                    <input type="number" id="editBeanieQty" min="0" value="0">
+                    <select id="editBeanieColor">
+                        <option value="">Color</option>
+                        <option value="Royal Blue">Royal Blue</option>
+                        <option value="Navy Blue">Navy Blue</option>
+                    </select>
+                </div>
+                
+                <!-- Skirt -->
+                <div class="edit-item-row">
+                    <label for="editSkirtQty">Skirt:</label>
+                    <input type="number" id="editSkirtQty" min="0" value="0">
+                    <select id="editSkirtSize">
+                        <option value="">Size</option>
+                        <option value="28">28</option>
+                        <option value="30">30</option>
+                        <option value="32">32</option>
+                        <option value="34">34</option>
+                        <option value="36">36</option>
+                        <option value="38">38</option>
+                        <option value="40">40</option>
+                        <option value="42">42</option>
+                        <option value="44">44</option>
+                    </select>
+                </div>
+                
+                <!-- Abaya -->
+                <div class="edit-item-row">
+                    <label for="editAbayaQty">Abaya:</label>
+                    <input type="number" id="editAbayaQty" min="0" value="0">
+                    <select id="editAbayaSize">
+                        <option value="">Size</option>
+                        <option value="XS">XS</option>
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                        <option value="XXL">XXL</option>
+                        <option value="No Size">No Size</option>
+                    </select>
+                </div>
+                
+                <!-- Caps -->
+                <div class="edit-item-row">
+                    <label for="editCapsQty">Caps:</label>
+                    <input type="number" id="editCapsQty" min="0" value="0">
+                    <select id="editCapsSize">
+                        <option value="">Size</option>
+                        <option value="No Size">No Size</option>
+                    </select>
+                </div>
+                
+                <!-- Shoes -->
+                <div class="edit-item-row">
+                    <label for="editShoesQty">Shoes:</label>
+                    <input type="number" id="editShoesQty" min="0" value="0">
+                    <select id="editShoesSize">
+                        <option value="">Size</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                </div>
+                
+                <!-- Gloves -->
+                <div class="edit-item-row">
+                    <label for="editGlovesQty">Gloves:</label>
+                    <input type="number" id="editGlovesQty" min="0" value="0">
+                    <select id="editGlovesType">
+                        <option value="">Type</option>
+                        <option value="Material">Material</option>
+                        <option value="Freezer">Freezer</option>
+                        <option value="Rubber">Rubber</option>
+                    </select>
+                </div>
+                
+                <!-- Dust Coats -->
+                <div class="edit-item-row">
+                    <label for="editDustCoatsQty">Dust Coats:</label>
+                    <input type="number" id="editDustCoatsQty" min="0" value="0">
+                    <select id="editDustCoatsSize">
+                        <option value="">Size</option>
+                        <option value="28">28</option>
+                        <option value="30">30</option>
+                        <option value="32">32</option>
+                        <option value="34">34</option>
+                        <option value="36">36</option>
+                        <option value="38">38</option>
+                        <option value="40">40</option>
+                        <option value="42">42</option>
+                        <option value="44">44</option>
+                    </select>
+                </div>
+                
+                <!-- Reflector -->
+                <div class="edit-item-row">
+                    <label for="editReflectorQty">Reflector:</label>
+                    <input type="number" id="editReflectorQty" min="0" value="0">
+                    <select id="editReflectorSize">
+                        <option value="">Size</option>
+                        <option value="No Size">No Size</option>
+                    </select>
+                </div>
+                
+                <div class="form-group" style="margin-top: 15px;">
+                    <label for="editTotalItems"><i class="fas fa-calculator"></i> Total Items:</label>
+                    <input type="text" id="editTotalItems" readonly value="0">
+                </div>
+                <div class="form-group">
+                    <label for="editTotalCost"><i class="fas fa-money-bill-wave"></i> Total Cost:</label>
+                    <input type="text" id="editTotalCost" readonly value="R 0.00">
+                </div>
+            </div>
+            
+            <!-- Signatures -->
+            <div class="form-group">
+                <label for="editSupervisorSign"><i class="fas fa-signature"></i> Supervisor Sign:</label>
+                <input type="text" id="editSupervisorSign">
+            </div>
+            <div class="form-group">
+                <label for="editEmployeeSign"><i class="fas fa-signature"></i> Employee Sign:</label>
+                <input type="text" id="editEmployeeSign">
+            </div>
+        </div>
+        
+        <div class="edit-buttons">
+            <button type="button" id="cancelEditBtn" class="reset-button"><i class="fas fa-times"></i> Cancel</button>
+            <button type="button" id="saveEditBtn" class="export-button"><i class="fas fa-save"></i> Save Changes</button>
+            <button type="button" id="deleteEditBtn" class="clear-button"><i class="fas fa-trash"></i> Delete Request</button>
+        </div>
+        
+        <div style="margin-top: 15px; color: var(--text-secondary); font-size: 0.85rem;">
+            <p><i class="fas fa-info-circle"></i> <strong>Note:</strong> Editing a request will adjust stock levels accordingly.</p>
+        </div>
+    </div>
+
     <script type="module">
         // Firebase imports
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
@@ -2394,6 +2689,7 @@
         let signaturePad = null;
         let currentRequestForDispatch = null;
         let allRequests = []; // Store all requests for export
+        let currentEditRequest = null; // Store current request being edited
 
         // Define possible sizes and colors
         const sizes = ["XS", "S", "M", "L", "XL", "XXL"];
@@ -2616,8 +2912,6 @@
             setTimeout(() => messageBox.classList.add('show'), 10);
         }
 
-        // --- SIGNATURE PAD FIXES ---
-        
         // Prevent default touch behavior specifically for canvas
         function preventDefaultTouch(e) {
             if (e.target.id === 'signaturePad') {
@@ -2628,35 +2922,32 @@
         // Function to resize canvas to match display size for high DPI
         function resizeCanvas(canvas) {
             const ratio =  Math.max(window.devicePixelRatio || 1, 1);
-            // Only set if dimensions are different to avoid clearing content unnecessarily
             if (canvas.width !== canvas.offsetWidth * ratio || canvas.height !== canvas.offsetHeight * ratio) {
                 canvas.width = canvas.offsetWidth * ratio;
                 canvas.height = canvas.offsetHeight * ratio;
                 canvas.getContext("2d").scale(ratio, ratio);
-                return true; // Resized
+                return true;
             }
-            return false; // Not resized
+            return false;
         }
 
         // Function to initialize signature pad
         function initializeSignaturePad() {
             const canvas = document.getElementById('signaturePad');
             
-            // Ensure canvas has strict touch-action set via JS (fallback)
             canvas.style.touchAction = 'none';
             canvas.style.userSelect = 'none';
             canvas.style.webkitUserSelect = 'none';
             
             resizeCanvas(canvas);
 
-            // Create signature pad with proper configuration
             signaturePad = new SignaturePad(canvas, {
                 backgroundColor: 'rgba(255, 255, 255, 0)',
                 penColor: 'black',
-                minWidth: 1, // Slightly wider for mobile touch
+                minWidth: 1,
                 maxWidth: 3.5,
-                throttle: 16, // Limit updates for performance
-                minDistance: 2 // Require slight movement
+                throttle: 16,
+                minDistance: 2
             });
 
             console.log("Signature pad initialized successfully");
@@ -2666,7 +2957,6 @@
         function showSignatureModal(request) {
             currentRequestForDispatch = request;
             
-            // Display request details in modal
             const dispatchInfoDiv = document.getElementById('dispatchRequestInfo');
             dispatchInfoDiv.innerHTML = `
                 <div style="background: var(--bg-secondary); padding: 15px; border-radius: 10px; border-left: 4px solid var(--info);">
@@ -2684,29 +2974,22 @@
                 </div>
             `;
             
-            // Show backdrop
             document.getElementById('modalBackdrop').classList.add('show');
             
-            // Show modal
             const signatureModal = document.getElementById('signatureModal');
             signatureModal.style.display = 'block';
             
-            // FIX: Delay initialization slightly to allow display:block to render so dimensions are correct
-            // We also wait for the CSS transition
             setTimeout(() => {
                 signatureModal.classList.add('show');
                 
-                // Now that it's visible, initialize or resize pad
                 if (!signaturePad) {
                     initializeSignaturePad();
                 } else {
-                    // Clear any existing signature
                     signaturePad.clear();
-                    // Resize canvas to current visual size
                     const canvas = document.getElementById('signaturePad');
                     resizeCanvas(canvas);
                 }
-            }, 50); // Short delay for browser paint
+            }, 50);
         }
 
         // Function to hide signature modal
@@ -2714,23 +2997,137 @@
             const signatureModal = document.getElementById('signatureModal');
             signatureModal.classList.remove('show');
             
-            // Hide backdrop
             document.getElementById('modalBackdrop').classList.remove('show');
             
             setTimeout(() => {
                 signatureModal.style.display = 'none';
                 currentRequestForDispatch = null;
                 
-                // Clear signature
                 if (signaturePad) {
                     signaturePad.clear();
                 }
             }, 300);
         }
 
+        // Function to show edit modal
+        function showEditModal(request) {
+            currentEditRequest = request;
+            
+            // Populate form with request data
+            document.getElementById('editDate').value = request.date;
+            document.getElementById('editClockNo').value = request.clockNo;
+            document.getElementById('editNames').value = request.names;
+            document.getElementById('editCategory').value = request.category;
+            document.getElementById('editSupervisorSign').value = request.supervisorSign || '';
+            document.getElementById('editEmployeeSign').value = request.employeeSign || '';
+            
+            // Populate item quantities and sizes
+            if (request.items.tShirt) {
+                document.getElementById('editTShirtQty').value = request.items.tShirt.quantity || 0;
+                document.getElementById('editTShirtSize').value = request.items.tShirt.size || '';
+            }
+            if (request.items.golfer) {
+                document.getElementById('editGolferQty').value = request.items.golfer.quantity || 0;
+                document.getElementById('editGolferSize').value = request.items.golfer.size || '';
+            }
+            if (request.items.jrb) {
+                document.getElementById('editJrbQty').value = request.items.jrb.quantity || 0;
+                document.getElementById('editJrbSize').value = request.items.jrb.size || '';
+            }
+            if (request.items.jnb) {
+                document.getElementById('editJnbQty').value = request.items.jnb.quantity || 0;
+                document.getElementById('editJnbSize').value = request.items.jnb.size || '';
+            }
+            if (request.items.beanie) {
+                document.getElementById('editBeanieQty').value = request.items.beanie.quantity || 0;
+                document.getElementById('editBeanieColor').value = request.items.beanie.color || '';
+            }
+            if (request.items.skirt) {
+                document.getElementById('editSkirtQty').value = request.items.skirt.quantity || 0;
+                document.getElementById('editSkirtSize').value = request.items.skirt.size || '';
+            }
+            if (request.items.abaya) {
+                document.getElementById('editAbayaQty').value = request.items.abaya.quantity || 0;
+                document.getElementById('editAbayaSize').value = request.items.abaya.size || '';
+            }
+            if (request.items.caps) {
+                document.getElementById('editCapsQty').value = request.items.caps.quantity || 0;
+                document.getElementById('editCapsSize').value = request.items.caps.size || '';
+            }
+            if (request.items.shoes) {
+                document.getElementById('editShoesQty').value = request.items.shoes.quantity || 0;
+                document.getElementById('editShoesSize').value = request.items.shoes.size || '';
+            }
+            if (request.items.gloves) {
+                document.getElementById('editGlovesQty').value = request.items.gloves.quantity || 0;
+                document.getElementById('editGlovesType').value = request.items.gloves.type || '';
+            }
+            if (request.items.dustCoats) {
+                document.getElementById('editDustCoatsQty').value = request.items.dustCoats.quantity || 0;
+                document.getElementById('editDustCoatsSize').value = request.items.dustCoats.size || '';
+            }
+            if (request.items.reflector) {
+                document.getElementById('editReflectorQty').value = request.items.reflector.quantity || 0;
+                document.getElementById('editReflectorSize').value = request.items.reflector.size || '';
+            }
+            
+            updateEditTotals();
+            
+            document.getElementById('modalBackdrop').classList.add('show');
+            const editModal = document.getElementById('editRequestModal');
+            editModal.style.display = 'block';
+            
+            setTimeout(() => {
+                editModal.classList.add('show');
+            }, 50);
+        }
+
+        // Function to hide edit modal
+        function hideEditModal() {
+            const editModal = document.getElementById('editRequestModal');
+            editModal.classList.remove('show');
+            document.getElementById('modalBackdrop').classList.remove('show');
+            
+            setTimeout(() => {
+                editModal.style.display = 'none';
+                currentEditRequest = null;
+                document.getElementById('editRequestForm').reset();
+            }, 300);
+        }
+
+        // Function to update totals in edit modal
+        function updateEditTotals() {
+            let totalItems = 0;
+            let totalCost = 0;
+            
+            const editItems = [
+                'editTShirtQty', 'editGolferQty', 'editJrbQty', 'editJnbQty', 'editBeanieQty',
+                'editSkirtQty', 'editAbayaQty', 'editCapsQty', 'editShoesQty', 'editGlovesQty',
+                'editDustCoatsQty', 'editReflectorQty'
+            ];
+            
+            const itemTypes = [
+                'tShirt', 'golfer', 'jrb', 'jnb', 'beanie',
+                'skirt', 'abaya', 'caps', 'shoes', 'gloves',
+                'dustCoats', 'reflector'
+            ];
+            
+            editItems.forEach((itemId, index) => {
+                const qtyInput = document.getElementById(itemId);
+                const quantity = parseInt(qtyInput.value) || 0;
+                totalItems += quantity;
+                
+                const itemType = itemTypes[index];
+                const itemPrice = currentStock[itemType]?.costPrice !== undefined ? currentStock[itemType].costPrice : 0;
+                totalCost += quantity * itemPrice;
+            });
+            
+            document.getElementById('editTotalItems').value = totalItems;
+            document.getElementById('editTotalCost').value = formatCurrency(totalCost);
+        }
+
         // Function to show export modal
         function showExportModal() {
-            // Set today's date as default for date inputs
             const today = new Date();
             const yyyy = today.getFullYear();
             const mm = String(today.getMonth() + 1).padStart(2, '0');
@@ -2738,10 +3135,8 @@
             document.getElementById('startDate').value = `${yyyy}-${mm}-${dd}`;
             document.getElementById('endDate').value = `${yyyy}-${mm}-${dd}`;
             
-            // Show backdrop
             document.getElementById('modalBackdrop').classList.add('show');
             
-            // Show modal
             const exportModal = document.getElementById('exportModal');
             exportModal.style.display = 'block';
             
@@ -2755,7 +3150,6 @@
             const exportModal = document.getElementById('exportModal');
             exportModal.classList.remove('show');
             
-            // Hide backdrop
             document.getElementById('modalBackdrop').classList.remove('show');
             
             setTimeout(() => {
@@ -2767,11 +3161,9 @@
         function arrayToCSV(data) {
             const csvRows = [];
             
-            // Get headers
             const headers = Object.keys(data[0]);
             csvRows.push(headers.join(','));
             
-            // Loop over the rows
             for (const row of data) {
                 const values = headers.map(header => {
                     let escaped = ('' + row[header]).replace(/"/g, '""');
@@ -2791,7 +3183,7 @@
             const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
             const link = document.createElement('a');
             
-            if (navigator.msSaveBlob) { // IE 10+
+            if (navigator.msSaveBlob) {
                 navigator.msSaveBlob(blob, fileName);
             } else {
                 link.href = URL.createObjectURL(blob);
@@ -2808,7 +3200,7 @@
             const now = new Date();
             const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
             const startOfWeek = new Date(today);
-            startOfWeek.setDate(today.getDate() - today.getDay()); // Sunday
+            startOfWeek.setDate(today.getDate() - today.getDay());
             const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
             
             switch (dateRange) {
@@ -2830,13 +3222,13 @@
                 case 'custom':
                     const startDate = new Date(document.getElementById('startDate').value);
                     const endDate = new Date(document.getElementById('endDate').value);
-                    endDate.setHours(23, 59, 59, 999); // End of day
+                    endDate.setHours(23, 59, 59, 999);
                     
                     return requests.filter(request => {
                         const requestDate = new Date(request.date);
                         return requestDate >= startDate && requestDate <= endDate;
                     });
-                default: // 'all'
+                default:
                     return requests;
             }
         }
@@ -2849,7 +3241,7 @@
                     case 'uncharged': return request.category === 'Uncharged';
                     case 'pending': return request.dispatchStatus !== 'dispatched';
                     case 'dispatched': return request.dispatchStatus === 'dispatched';
-                    default: return true; // 'requests'
+                    default: return true;
                 }
             });
 
@@ -2861,7 +3253,6 @@
             const csvData = [];
             
             if (includeDetails === 'yes') {
-                // Detailed export with item breakdown
                 csvData.push({
                     'Request ID': 'ID',
                     'Date': 'Date',
@@ -2885,7 +3276,6 @@
                 filteredRequests.forEach(request => {
                     const requestDate = request.timestamp ? new Date(request.timestamp.toDate()).toLocaleString() : 'N/A';
                     
-                    // Add a row for each item in the request
                     for (const itemType in request.items) {
                         const item = request.items[itemType];
                         if (item.quantity > 0) {
@@ -2916,7 +3306,6 @@
                         }
                     }
                     
-                    // If no items, still add a summary row
                     if (Object.keys(request.items).length === 0) {
                         csvData.push({
                             'Request ID': request.id || 'N/A',
@@ -2940,7 +3329,6 @@
                     }
                 });
             } else {
-                // Summary export
                 csvData.push({
                     'Request ID': 'ID',
                     'Date': 'Date',
@@ -2970,7 +3358,6 @@
                 filteredRequests.forEach(request => {
                     const requestDate = request.timestamp ? new Date(request.timestamp.toDate()).toLocaleString() : 'N/A';
                     
-                    // Create item summary string for each item type
                     const itemSummary = {};
                     for (const itemType in itemMap) {
                         const item = request.items[itemType] || {};
@@ -3021,7 +3408,6 @@
         function generateStockCSV() {
             const csvData = [];
             
-            // Header row
             csvData.push({
                 'Item Type': 'Item Type',
                 'Size/Color': 'Size/Color',
@@ -3031,7 +3417,6 @@
                 'Last Updated': 'Last Updated'
             });
 
-            // Add stock data
             for (const itemType in currentStock) {
                 const itemData = currentStock[itemType];
                 if (itemData && typeof itemData === 'object') {
@@ -3075,7 +3460,6 @@
                 
                 const csvData = [];
                 
-                // Header row
                 csvData.push({
                     'Timestamp': 'Timestamp',
                     'Item': 'Item',
@@ -3104,7 +3488,7 @@
                     });
                 });
 
-                if (csvData.length === 1) { // Only header row
+                if (csvData.length === 1) {
                     showMessageBox("No stock adjustment history found.");
                     return;
                 }
@@ -3540,22 +3924,17 @@
             document.getElementById('date').value = `${yyyy}-${mm}-${dd}`;
             calculateTotals();
             
-            // Initialize theme and collapsible sections
             initTheme();
             initCollapsibleSections();
             initQuickActions();
             
-            // Initialize Firebase
             initializeFirebaseWithRetry();
             
-            // FIX: Add global touch prevention specifically for canvas
-            // This is crucial for Android Chrome which sometimes ignores CSS-only touch-action
             const canvas = document.getElementById('signaturePad');
             canvas.addEventListener('touchstart', preventDefaultTouch, { passive: false });
             canvas.addEventListener('touchmove', preventDefaultTouch, { passive: false });
             canvas.addEventListener('touchend', preventDefaultTouch, { passive: false });
             
-            // Export modal event listeners
             dateRangeSelect.addEventListener('change', function() {
                 if (this.value === 'custom') {
                     customDateRange.style.display = 'block';
@@ -3578,24 +3957,30 @@
                 } else if (exportType === 'stockHistory') {
                     await generateStockHistoryCSV();
                 } else {
-                    // Filter requests by date range
                     const filteredRequests = filterRequestsByDate(allRequests, dateRange);
                     generateRequestsCSV(filteredRequests, exportType, includeDetailsVal);
                 }
             });
             
-            // Export button event listener
             exportDataBtn.addEventListener('click', showExportModal);
+            
+            const editQuantityInputs = document.querySelectorAll('[id^="edit"][id$="Qty"]');
+            editQuantityInputs.forEach(input => {
+                input.addEventListener('input', updateEditTotals);
+            });
+            
+            document.getElementById('cancelEditBtn').addEventListener('click', hideEditModal);
+            document.getElementById('saveEditBtn').addEventListener('click', saveEditedRequest);
+            document.getElementById('deleteEditBtn').addEventListener('click', deleteRequest);
         });
 
         // Theme toggle event listener
         themeToggle.addEventListener('click', toggleTheme);
 
-        // Function to create a request item HTML element with dispatch functionality and signature display
+        // Function to create a request item HTML element with dispatch and edit functionality
         function createRequestItemHtml(request) {
             const requestDiv = document.createElement('div');
             
-            // Determine status class and badge
             let statusClass = '';
             let statusBadge = '';
             let dispatchActions = '';
@@ -3605,7 +3990,6 @@
                 statusClass = 'dispatched';
                 statusBadge = '<span class="status-badge status-dispatched"><i class="fas fa-check-circle"></i> Dispatched</span>';
                 
-                // Show dispatch info if available
                 let dispatchInfo = '';
                 if (request.dispatchDate) {
                     const dispatchDate = request.dispatchDate.toDate ? request.dispatchDate.toDate() : new Date(request.dispatchDate);
@@ -3653,7 +4037,6 @@
                     <p class="text-xs text-gray-400 mt-2"><i class="fas fa-clock"></i> Submitted: ${request.timestamp ? new Date(request.timestamp.toDate()).toLocaleString() : 'N/A'}</p>
                 `;
             } else {
-                // Pending dispatch
                 statusClass = 'pending-dispatch';
                 statusBadge = '<span class="status-badge status-pending"><i class="fas fa-clock"></i> Pending Dispatch</span>';
                 
@@ -3661,6 +4044,9 @@
                     <div class="request-item-actions">
                         <button type="button" class="dispatch-button" data-request-id="${request.id}">
                             <i class="fas fa-truck"></i> Dispatch Now
+                        </button>
+                        <button type="button" class="edit-button" data-request-id="${request.id}">
+                            <i class="fas fa-edit"></i> Edit Request
                         </button>
                     </div>
                 `;
@@ -3695,9 +4081,19 @@
             return requestDiv;
         }
 
+        // Function to add edit button listeners
+        function addEditButtonListeners(requestDiv, request) {
+            const editBtn = requestDiv.querySelector('.edit-button');
+            if (editBtn) {
+                editBtn.addEventListener('click', () => {
+                    showEditModal(request);
+                });
+            }
+        }
+
         // Function to render requests into their respective containers and calculate stats
         function renderRequests(requests) {
-            allRequests = requests; // Store for export
+            allRequests = requests;
             
             pendingDispatchContainer.innerHTML = '';
             dispatchedContainer.innerHTML = '';
@@ -3731,7 +4127,6 @@
             requests.forEach(request => {
                 const requestDiv = createRequestItemHtml(request);
 
-                // Add event listener for dispatch buttons
                 if (request.dispatchStatus !== 'dispatched') {
                     const dispatchBtn = requestDiv.querySelector('.dispatch-button');
                     if (dispatchBtn) {
@@ -3739,9 +4134,10 @@
                             showSignatureModal(request);
                         });
                     }
+                    
+                    addEditButtonListeners(requestDiv, request);
                 }
 
-                // Categorize by dispatch status
                 if (request.dispatchStatus === 'dispatched') {
                     dispatchedCount++;
                     dispatchedContainer.appendChild(requestDiv);
@@ -3750,7 +4146,6 @@
                     pendingDispatchContainer.appendChild(requestDiv);
                 }
 
-                // Also categorize by charge type for the requests section
                 if (request.category === 'Charged') {
                     chargedRequestsCount++;
                     chargedRequestsContainer.appendChild(requestDiv.cloneNode(true));
@@ -3759,7 +4154,6 @@
                     unchargedRequestsContainer.appendChild(requestDiv.cloneNode(true));
                 }
 
-                // Update statistics
                 if (request.category === 'Charged') {
                     totalChargedCost += request.totalCost || 0;
                 } else if (request.category === 'Uncharged') {
@@ -3768,7 +4162,6 @@
 
                 totalItemsAcrossAllRequests += request.totalItems || 0;
 
-                // Update item-wise statistics
                 for (const itemType in request.items) {
                     const quantity = request.items[itemType].quantity || 0;
                     const itemPriceAtRequest = request.items[itemType].itemPrice !== undefined ? request.items[itemType].itemPrice : (currentStock[itemType]?.costPrice !== undefined ? currentStock[itemType].costPrice : 0);
@@ -3787,7 +4180,6 @@
                 }
             });
 
-            // Update message displays
             if (pendingDispatchCount === 0) {
                 noPendingDispatchMessage.style.display = 'block';
             } else {
@@ -3812,7 +4204,6 @@
                 noUnchargedRequestsMessage.style.display = 'none';
             }
 
-            // Update dashboard stats
             document.getElementById('totalRequestsStat').innerText = totalRequests;
             document.getElementById('chargedRequestsStat').innerText = chargedRequestsCount;
             document.getElementById('unchargedRequestsStat').innerText = unchargedRequestsCount;
@@ -3820,7 +4211,6 @@
             document.getElementById('dispatchedStat').innerText = dispatchedCount;
             document.getElementById('totalItemsStat').innerText = totalItemsAcrossAllRequests;
 
-            // Update stats section
             document.getElementById('totalRequestsStat2').innerText = totalRequests;
             document.getElementById('chargedRequestsStat2').innerText = chargedRequestsCount;
             document.getElementById('unchargedRequestsStat2').innerText = unchargedRequestsCount;
@@ -3830,7 +4220,6 @@
             document.getElementById('totalChargedCostStat').innerText = formatCurrency(totalChargedCost);
             document.getElementById('totalUnchargedCostStat').innerText = formatCurrency(totalUnchargedCost);
 
-            // Update item statistics
             document.getElementById('tShirtTotalStat').innerText = itemRequestStats.tShirt.total;
             document.getElementById('tShirtChargedStat').innerText = itemRequestStats.tShirt.charged;
             document.getElementById('tShirtUnchargedStat').innerText = itemRequestStats.tShirt.uncharged;
@@ -4019,7 +4408,7 @@
                 employeeSign: document.getElementById('employeeSign').value,
                 timestamp: serverTimestamp(),
                 submittedBy: currentUserId,
-                dispatchStatus: 'pending' // New requests start as pending dispatch
+                dispatchStatus: 'pending'
             };
 
             if (!formData.date || !formData.clockNo || !formData.names || !formData.category) {
@@ -4174,12 +4563,10 @@
             const statsToggle = document.getElementById('statsToggle');
             
             if (statsContent.style.maxHeight && statsContent.style.maxHeight !== '0px') {
-                // Collapse
                 statsContent.style.maxHeight = '0px';
                 statsContent.classList.remove('expanded');
                 statsToggle.classList.add('collapsed');
             } else {
-                // Expand
                 statsContent.style.maxHeight = statsContent.scrollHeight + "px";
                 statsContent.classList.add('expanded');
                 statsToggle.classList.remove('collapsed');
@@ -4532,10 +4919,9 @@
                 return;
             }
 
-            const signatureData = signaturePad.toDataURL('image/png'); // Get signature as PNG base64
+            const signatureData = signaturePad.toDataURL('image/png');
             
             try {
-                // Update request with dispatch information and signature
                 const requestRef = doc(db, `artifacts/${appId}/public/data/uniformRequests`, currentRequestForDispatch.id);
                 
                 await updateDoc(requestRef, {
@@ -4550,7 +4936,6 @@
 
                 showMessageBox(`Uniform items dispatched successfully for ${currentRequestForDispatch.names} (Clock No: ${currentRequestForDispatch.clockNo}). Signature recorded.`);
                 
-                // Clear signature and hide modal
                 signaturePad.clear();
                 hideSignatureModal();
                 
@@ -4560,24 +4945,214 @@
             }
         });
 
+        // Handle saving edited request
+        async function saveEditedRequest() {
+            if (!currentEditRequest || !isAuthReady || !currentUserId) {
+                showMessageBox("Cannot save changes. Please try again.");
+                return;
+            }
+            
+            const editedData = {
+                date: document.getElementById('editDate').value,
+                clockNo: document.getElementById('editClockNo').value,
+                names: document.getElementById('editNames').value,
+                category: document.getElementById('editCategory').value,
+                items: {
+                    tShirt: {
+                        quantity: parseInt(document.getElementById('editTShirtQty').value) || 0,
+                        size: document.getElementById('editTShirtSize').value,
+                        itemPrice: currentStock.tShirt?.costPrice !== undefined ? currentStock.tShirt.costPrice : 0
+                    },
+                    golfer: {
+                        quantity: parseInt(document.getElementById('editGolferQty').value) || 0,
+                        size: document.getElementById('editGolferSize').value,
+                        itemPrice: currentStock.golfer?.costPrice !== undefined ? currentStock.golfer.costPrice : 0
+                    },
+                    jrb: {
+                        quantity: parseInt(document.getElementById('editJrbQty').value) || 0,
+                        size: document.getElementById('editJrbSize').value,
+                        itemPrice: currentStock.jrb?.costPrice !== undefined ? currentStock.jrb.costPrice : 0
+                    },
+                    jnb: {
+                        quantity: parseInt(document.getElementById('editJnbQty').value) || 0,
+                        size: document.getElementById('editJnbSize').value,
+                        itemPrice: currentStock.jnb?.costPrice !== undefined ? currentStock.jnb.costPrice : 0
+                    },
+                    beanie: {
+                        quantity: parseInt(document.getElementById('editBeanieQty').value) || 0,
+                        color: document.getElementById('editBeanieColor').value,
+                        itemPrice: currentStock.beanie?.costPrice !== undefined ? currentStock.beanie.costPrice : 0
+                    },
+                    skirt: {
+                        quantity: parseInt(document.getElementById('editSkirtQty').value) || 0,
+                        size: document.getElementById('editSkirtSize').value,
+                        itemPrice: currentStock.skirt?.costPrice !== undefined ? currentStock.skirt.costPrice : 0
+                    },
+                    abaya: {
+                        quantity: parseInt(document.getElementById('editAbayaQty').value) || 0,
+                        size: document.getElementById('editAbayaSize').value,
+                        itemPrice: currentStock.abaya?.costPrice !== undefined ? currentStock.abaya.costPrice : 0
+                    },
+                    caps: {
+                        quantity: parseInt(document.getElementById('editCapsQty').value) || 0,
+                        size: document.getElementById('editCapsSize').value,
+                        itemPrice: currentStock.caps?.costPrice !== undefined ? currentStock.caps.costPrice : 0
+                    },
+                    shoes: {
+                        quantity: parseInt(document.getElementById('editShoesQty').value) || 0,
+                        size: document.getElementById('editShoesSize').value,
+                        itemPrice: currentStock.shoes?.costPrice !== undefined ? currentStock.shoes.costPrice : 0
+                    },
+                    gloves: {
+                        quantity: parseInt(document.getElementById('editGlovesQty').value) || 0,
+                        type: document.getElementById('editGlovesType').value,
+                        itemPrice: currentStock.gloves?.costPrice !== undefined ? currentStock.gloves.costPrice : 0
+                    },
+                    dustCoats: {
+                        quantity: parseInt(document.getElementById('editDustCoatsQty').value) || 0,
+                        size: document.getElementById('editDustCoatsSize').value,
+                        itemPrice: currentStock.dustCoats?.costPrice !== undefined ? currentStock.dustCoats.costPrice : 0
+                    },
+                    reflector: {
+                        quantity: parseInt(document.getElementById('editReflectorQty').value) || 0,
+                        size: document.getElementById('editReflectorSize').value,
+                        itemPrice: currentStock.reflector?.costPrice !== undefined ? currentStock.reflector.costPrice : 0
+                    }
+                },
+                totalItems: parseInt(document.getElementById('editTotalItems').value) || 0,
+                totalCost: parseFloat(document.getElementById('editTotalCost').value.replace('R ', '')) || 0,
+                supervisorSign: document.getElementById('editSupervisorSign').value,
+                employeeSign: document.getElementById('editEmployeeSign').value,
+                lastEditedBy: currentUserId,
+                lastEditedAt: serverTimestamp()
+            };
+            
+            try {
+                const requestRef = doc(db, `artifacts/${appId}/public/data/uniformRequests`, currentEditRequest.id);
+                const stockDocRef = doc(db, `artifacts/${appId}/public/data/uniformStock`, 'currentStock');
+                
+                await runTransaction(db, async (transaction) => {
+                    const stockDoc = await transaction.get(stockDocRef);
+                    if (!stockDoc.exists()) {
+                        throw new Error("Stock data not found.");
+                    }
+                    
+                    const currentStockInDb = stockDoc.data();
+                    const newStockData = JSON.parse(JSON.stringify(currentStockInDb));
+                    
+                    for (const itemType in currentEditRequest.items) {
+                        const originalItem = currentEditRequest.items[itemType];
+                        if (originalItem.quantity > 0) {
+                            const sizeOrColor = originalItem.size || originalItem.color || originalItem.type;
+                            if (sizeOrColor && newStockData[itemType] && newStockData[itemType][sizeOrColor] !== undefined) {
+                                newStockData[itemType][sizeOrColor] += originalItem.quantity;
+                            }
+                        }
+                    }
+                    
+                    let insufficientStockMessage = "";
+                    for (const itemType in editedData.items) {
+                        const newItem = editedData.items[itemType];
+                        if (newItem.quantity > 0) {
+                            const sizeOrColor = newItem.size || newItem.color || newItem.type;
+                            
+                            if (!sizeOrColor) {
+                                insufficientStockMessage += `Please select a size/color for ${itemMap[itemType].name}.\n`;
+                                continue;
+                            }
+                            
+                            if (!newStockData[itemType]) {
+                                newStockData[itemType] = {};
+                            }
+                            if (newStockData[itemType][sizeOrColor] === undefined) {
+                                newStockData[itemType][sizeOrColor] = 0;
+                            }
+                            
+                            const availableStock = newStockData[itemType][sizeOrColor];
+                            
+                            if (newItem.quantity > availableStock) {
+                                insufficientStockMessage += `Insufficient stock for ${itemMap[itemType].name} (Size/Color: ${sizeOrColor}). Requested: ${newItem.quantity}, Available: ${availableStock}.\n`;
+                            } else {
+                                newStockData[itemType][sizeOrColor] -= newItem.quantity;
+                            }
+                        }
+                    }
+                    
+                    if (insufficientStockMessage) {
+                        throw new Error(insufficientStockMessage);
+                    }
+                    
+                    transaction.update(stockDocRef, newStockData);
+                    transaction.update(requestRef, editedData);
+                });
+                
+                showMessageBox("Request updated successfully!");
+                hideEditModal();
+            } catch (error) {
+                console.error("Error updating request:", error);
+                showMessageBox(error.message.includes("Insufficient stock") ? error.message : "Error updating request. Please try again.");
+            }
+        }
+
+        // Function to delete request
+        async function deleteRequest() {
+            if (!currentEditRequest || !isAuthReady) {
+                showMessageBox("Cannot delete request. Please try again.");
+                return;
+            }
+            
+            showMessageBox("Are you sure you want to delete this request? This action cannot be undone.", 'confirm', async (confirmed) => {
+                if (confirmed) {
+                    try {
+                        const requestRef = doc(db, `artifacts/${appId}/public/data/uniformRequests`, currentEditRequest.id);
+                        const stockDocRef = doc(db, `artifacts/${appId}/public/data/uniformStock`, 'currentStock');
+                        
+                        await runTransaction(db, async (transaction) => {
+                            const stockDoc = await transaction.get(stockDocRef);
+                            if (!stockDoc.exists()) {
+                                throw new Error("Stock data not found.");
+                            }
+                            
+                            const currentStockInDb = stockDoc.data();
+                            const newStockData = JSON.parse(JSON.stringify(currentStockInDb));
+                            
+                            for (const itemType in currentEditRequest.items) {
+                                const item = currentEditRequest.items[itemType];
+                                if (item.quantity > 0) {
+                                    const sizeOrColor = item.size || item.color || item.type;
+                                    if (sizeOrColor && newStockData[itemType] && newStockData[itemType][sizeOrColor] !== undefined) {
+                                        newStockData[itemType][sizeOrColor] += item.quantity;
+                                    }
+                                }
+                            }
+                            
+                            transaction.update(stockDocRef, newStockData);
+                            transaction.delete(requestRef);
+                        });
+                        
+                        showMessageBox("Request deleted successfully!");
+                        hideEditModal();
+                    } catch (error) {
+                        console.error("Error deleting request:", error);
+                        showMessageBox("Error deleting request. Please try again.");
+                    }
+                }
+            });
+        }
+
         // Handle window resize for signature pad
         window.addEventListener('resize', () => {
             if (signaturePad) {
-                // Save current signature
                 const data = signaturePad.toData();
-                
-                // Resize canvas using our helper
                 const canvas = document.getElementById('signaturePad');
                 const didResize = resizeCanvas(canvas);
-                
-                // Restore signature
                 if (didResize) {
                     signaturePad.fromData(data);
                 }
             }
         });
 
-        console.log("Uniform Request Application with Signature Capture and CSV Export loaded and initialized.");
+        console.log("Uniform Request Application with Edit Functionality and CSV Export loaded and initialized.");
     </script>
 </body>
 </html>
